@@ -6,10 +6,10 @@ import java.util.Date;
  * Created by Emilio on 15/01/2017.
  */
 
-public class DailyExpense {
+public class DailyExpenses {
 
     private Date date;
-    private float meal, fuel, fuelAmount, hotel, parking, otherExpense;
+    private float meal, fuel, fuelAmount, hotel, parking, carExpenses, otherExpenses;
 
     public void setDate(Date date) {
         this.date = date;
@@ -31,12 +31,16 @@ public class DailyExpense {
         this.meal = meal;
     }
 
-    public void setOtherExpense(float otherExpense) {
-        this.otherExpense = otherExpense;
+    public void setOtherExpenses(float otherExpenses) {
+        this.otherExpenses = otherExpenses;
     }
 
     public void setParking(float parking) {
         this.parking = parking;
+    }
+
+    public void setCarExpenses(float carExpenses) {
+        this.carExpenses = carExpenses;
     }
 
     public Date getDate() {
@@ -59,11 +63,15 @@ public class DailyExpense {
         return meal;
     }
 
-    public float getOtherExpense() {
-        return otherExpense;
+    public float getOtherExpenses() {
+        return otherExpenses;
     }
 
     public float getParking() {
         return parking;
+    }
+
+    public float getCarExpenses() {
+        return carExpenses;
     }
 }
