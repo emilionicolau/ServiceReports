@@ -9,10 +9,15 @@ import java.util.Date;
 public class DailyExpenses {
 
     private Date date;
-    private float meal, fuel, fuelAmount, hotel, parking, carExpenses, otherExpenses;
+    private int kms;
+    private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses;
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public void setKms(int kms) {
+        this.kms = kms;
     }
 
     public void setFuel(float fuel) {
@@ -39,12 +44,20 @@ public class DailyExpenses {
         this.parking = parking;
     }
 
+    public void setTravel(float travel) {
+        this.travel = travel;
+    }
+
     public void setCarExpenses(float carExpenses) {
         this.carExpenses = carExpenses;
     }
 
     public Date getDate() {
         return date;
+    }
+
+    public int getKms() {
+        return kms;
     }
 
     public float getFuel() {
@@ -69,6 +82,10 @@ public class DailyExpenses {
 
     public float getParking() {
         return parking;
+    }
+
+    public float getTravel() {
+        return travel;
     }
 
     public float getCarExpenses() {

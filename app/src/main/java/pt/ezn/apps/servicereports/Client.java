@@ -9,16 +9,7 @@ public class Client {
     private String clientName, clientAdress, clientContacts, clientEquipments;
     private int clientPhone, clientMobil, clientKms;
 
-    public Client(String clientAdress, String clientContacts, String clientEquipments,
-                  int clientKms, int clientMobil, String clientName, int clientPhone) {
-        this.clientAdress = clientAdress;
-        this.clientContacts = clientContacts;
-        this.clientEquipments = clientEquipments;
-        this.clientKms = clientKms;
-        this.clientMobil = clientMobil;
-        this.clientName = clientName;
-        this.clientPhone = clientPhone;
-    }
+
 
     public void setClientAdress(String clientAdress) {
         this.clientAdress = clientAdress;
