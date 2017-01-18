@@ -45,7 +45,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_OTHER_EXPENSES = "Other_Expenses";
 
     private static final String CREATE_TABLE_1 = "CREATE TABLE "+TABLE_1_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+
+            COL_ID+" INTEGER PRIMARY KEY  "+
             COL_CLIENT_ID+" INTEGER "+
             COL_EQUIPMENT+" TEXT "+
             COL_DATE+" INTEGER "+
@@ -58,7 +58,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String CREATE_TABLE_2 = "CREATE TABLE "+TABLE_2_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+
+            COL_ID+" INTEGER PRIMARY KEY  "+
             COL_CLIENT_ID+" INTEGER "+
             COL_NAME+" TEXT "+
             COL_ADDRESS+" TEXT "+
@@ -71,7 +71,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String CREATE_TABLE_3 = "CREATE TABLE "+TABLE_3_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+
+            COL_ID+" INTEGER PRIMARY KEY  "+
             COL_DATE+" INTEGER "+
             COL_KMS+" INTEGER "+
             COL_MEALS+" INTEGER "+
