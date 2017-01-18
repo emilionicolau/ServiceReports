@@ -2,11 +2,12 @@ package pt.ezn.apps.servicereports;
 
 /**
  * Created by Emilio on 15/01/2017.
+ ServiceReports
  */
 
 public class Client {
 
-    private String clientName, clientAdress, clientContacts, clientEquipments;
+    private String clientName, clientAdress, clientContacts, clientEquipments, clientNotes;
     private int clientPhone, clientMobil, clientKms;
 
 
@@ -39,6 +40,10 @@ public class Client {
         this.clientPhone = clientPhone;
     }
 
+    public void setClientNotes(String clientNotes) {
+        this.clientNotes = clientNotes;
+    }
+
     public String getClientAdress() {
         return clientAdress;
     }
@@ -65,5 +70,9 @@ public class Client {
 
     public int getClientPhone() {
         return clientPhone;
+    }
+
+    public String getClientNotes() {
+        return clientNotes;
     }
 }

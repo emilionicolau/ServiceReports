@@ -4,6 +4,7 @@ import java.util.Date;
 
 /**
  * Created by Emilio on 15/01/2017.
+ ServiceReports
  */
 
 public class DailyExpenses {
@@ -11,6 +12,7 @@ public class DailyExpenses {
     private Date date;
     private int kms;
     private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses;
+    private String notes;
 
     public void setDate(Date date) {
         this.date = date;
@@ -52,6 +54,10 @@ public class DailyExpenses {
         this.carExpenses = carExpenses;
     }
 
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -90,5 +96,9 @@ public class DailyExpenses {
 
     public float getCarExpenses() {
         return carExpenses;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 }
