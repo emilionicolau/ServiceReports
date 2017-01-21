@@ -1,7 +1,5 @@
 package pt.ezn.apps.servicereports;
 
-import java.util.Date;
-
 /**
  * Created by Emilio on 15/01/2017.
  ServiceReports
@@ -9,15 +7,15 @@ import java.util.Date;
 
 public class ServiceActivity {
 
-    private Date date;
+
     private String client, equipment, workDesc, notes;
-    private int hourBegin, hourEnd, travelTime, travelDistance;
+    private int date, hourBegin, hourEnd, travelTime, travelDistance;
 
     public void setClient(String client) {
         this.client = client;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 
@@ -53,7 +51,7 @@ public class ServiceActivity {
         return client;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 

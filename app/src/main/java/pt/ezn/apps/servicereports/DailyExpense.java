@@ -1,20 +1,17 @@
 package pt.ezn.apps.servicereports;
 
-import java.util.Date;
-
 /**
  * Created by Emilio on 15/01/2017.
  ServiceReports
  */
 
-public class DailyExpenses {
+public class DailyExpense {
 
-    private Date date;
-    private int kms;
+    private int date, kms;
     private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses;
     private String notes;
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 
@@ -58,7 +55,7 @@ public class DailyExpenses {
         this.notes = notes;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 
