@@ -13,7 +13,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "ServiceReports.db";
 
-    private static final String TABLE_1_NAME = "ServiceActivity_Table";
+    private static final String TABLE_1_NAME = "ServiceActivity";
     private static final String COL_ID = "_id";
     private static final String COL_CLIENT_ID = "Client_id";
     private static final String COL_EQUIPMENT = "Equipment";
@@ -45,45 +45,46 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_OTHER_EXPENSES = "Other_Expenses";
 
     private static final String CREATE_TABLE_1 = "CREATE TABLE "+TABLE_1_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY  "+
-            COL_CLIENT_ID+" INTEGER "+
-            COL_EQUIPMENT+" TEXT "+
-            COL_DATE+" INTEGER "+
-            COL_HOUR_BEGIN+" INTEGER "+
-            COL_HOUR_END+" INTEGER "+
-            COL_TRAVEL_TIME+" INTEGER "+
-            COL_TRAVEL_DISTANCE+" INTEGER "+
-            COL_WORK_DESC+" TEXT "+
-            COL_NOTES+" TEXT "+
-            ");";
+            COL_ID+" INTEGER PRIMARY KEY,  "+
+            COL_CLIENT_ID+" INTEGER, "+
+            COL_EQUIPMENT+" TEXT, "+
+            COL_DATE+" INTEGER NOT NULL, "+
+            COL_HOUR_BEGIN+" INTEGER, "+
+            COL_HOUR_END+" INTEGER, "+
+            COL_TRAVEL_TIME+" INTEGER, "+
+            COL_TRAVEL_DISTANCE+" INTEGER, "+
+            COL_WORK_DESC+" TEXT, "+
+            COL_NOTES+" TEXT) ";
+
 
     private static final String CREATE_TABLE_2 = "CREATE TABLE "+TABLE_2_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY  "+
-            COL_CLIENT_ID+" INTEGER "+
-            COL_NAME+" TEXT "+
-            COL_ADDRESS+" TEXT "+
-            COL_CONTACTS+" TEXT "+
-            COL_EQUIPMENTS+" TEXT "+
-            COL_PHONE+" INTEGER "+
-            COL_MOBIL+" INTEGER "+
-            COL_KMS+" INTEGER "+
-            COL_NOTES+" TEXT "+
-            ");";
+            COL_ID+" INTEGER PRIMARY KEY,  "+
+            COL_CLIENT_ID+" INTEGER, "+
+            COL_NAME+" TEXT NOT NULL, "+
+            COL_ADDRESS+" TEXT, "+
+            COL_CONTACTS+" TEXT, "+
+            COL_EQUIPMENTS+" TEXT, "+
+            COL_PHONE+" INTEGER, "+
+            COL_MOBIL+" INTEGER, "+
+            COL_KMS+" INTEGER, "+
+            COL_NOTES+" TEXT, " +
+            " FOREIGN KEY("+COL_ID+") REFERENCES "+TABLE_1_NAME+"("+COL_ID+"))";
+
 
     private static final String CREATE_TABLE_3 = "CREATE TABLE "+TABLE_3_NAME+"("+
-            COL_ID+" INTEGER PRIMARY KEY  "+
-            COL_DATE+" INTEGER "+
-            COL_KMS+" INTEGER "+
-            COL_MEALS+" INTEGER "+
-            COL_FUEL+" INTEGER "+
-            COL_FUELAMOUNT+" INTEGER "+
-            COL_HOTEL+" INTEGER "+
-            COL_PARKING+" INTEGER "+
-            COL_CAREXPENSES+" INTEGER "+
-            COL_TRAVEL+" INTEGER "+
-            COL_OTHER_EXPENSES+" INTEGER "+
-            COL_NOTES+" TEXT "+
-            ");";
+            COL_ID+" INTEGER PRIMARY KEY,  "+
+            COL_DATE+" INTEGER NOT NULL, "+
+            COL_KMS+" INTEGER, "+
+            COL_MEALS+" INTEGER, "+
+            COL_FUEL+" INTEGER, "+
+            COL_FUELAMOUNT+" INTEGER, "+
+            COL_HOTEL+" INTEGER, "+
+            COL_PARKING+" INTEGER, "+
+            COL_CAREXPENSES+" INTEGER, "+
+            COL_TRAVEL+" INTEGER, "+
+            COL_OTHER_EXPENSES+" INTEGER, "+
+            COL_NOTES+" TEXT)";
+
 
 
     public static final int VERSION = 1;
@@ -91,6 +92,7 @@ public class ReportsDatabaseHelper extends SQLiteOpenHelper {
 
     public ReportsDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
+        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
