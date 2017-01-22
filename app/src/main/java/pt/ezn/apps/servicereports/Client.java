@@ -10,7 +10,8 @@ public class Client {
     private String clientName, clientAdress, clientContacts, clientEquipments, clientNotes;
     private int clientPhone, clientMobil, clientKms;
 
-
+    public Client() {
+    }
 
     public void setClientAdress(String clientAdress) {
         this.clientAdress = clientAdress;

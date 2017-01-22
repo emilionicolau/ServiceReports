@@ -11,6 +11,10 @@ public class ServiceActivity {
     private String client, equipment, workDesc, notes;
     private int date, hourBegin, hourEnd, travelTime, travelDistance;
 
+    public ServiceActivity() {
+    }
+
+
     public void setClient(String client) {
         this.client = client;
     }

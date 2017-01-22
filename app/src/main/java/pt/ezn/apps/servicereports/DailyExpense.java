@@ -11,6 +11,9 @@ public class DailyExpense {
     private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses;
     private String notes;
 
+    public DailyExpense() {
+    }
+
     public void setDate(int date) {
         this.date = date;
     }
