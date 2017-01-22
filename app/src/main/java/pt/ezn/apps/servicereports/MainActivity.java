@@ -16,7 +16,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ReportsDatabaseHelper db;
+    ReportsDatabaseAdapter db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        db = new ReportsDatabaseHelper(this);
+        db = new ReportsDatabaseAdapter(this);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
