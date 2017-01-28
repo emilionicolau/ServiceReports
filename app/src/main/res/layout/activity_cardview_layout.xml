@@ -8,8 +8,17 @@
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        card_view:cardCornerRadius="4dp">
+        card_view:cardCornerRadius="4dp"
+        android:clickable="true">
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_height="1dp"
+        android:background="@color/cardview_shadow_end_color"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -21,6 +30,10 @@
             android:text="data"
             android:layout_width="match_parent"
             android:layout_height="20dp"
+            android:gravity="right"
+            android:layout_marginRight="12dp"
+            android:maxLines="1"
+            style="@style/CardView.Dark"
             android:id="@+id/tvDate" />
 
         <TextView
@@ -28,6 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingTop="4dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:id="@+id/tvClient" />
 
         <TextView
@@ -35,6 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
             android:id="@+id/tvDescr" />
     </LinearLayout>
 
