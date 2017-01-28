@@ -2,11 +2,11 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/nav_activities"
-        android:icon="@drawable/ic_activities"
-        android:title="Activities" />
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_activities"
+            android:icon="@drawable/ic_activities"
+            android:title="Activities" />
         <item
             android:id="@+id/nav_expenses"
             android:icon="@drawable/ic_expenses"
@@ -15,17 +15,18 @@
             android:id="@+id/nav_clients"
             android:icon="@drawable/ic_customers"
             android:title="Clients" />
-        <item android:title="Reports">
-            <menu>
-                <item
-                    android:id="@+id/nav_report_expenses"
-                    android:title="Expenses Reports" />
-                <item
-                    android:id="@+id/nav_report_activities"
-                    android:title="Activities Reports" />
-            </menu>
-        </item>
-
     </group>
+
+    <item android:title="Reports">
+        <menu>
+            <item
+                android:id="@+id/nav_report_expenses"
+                android:title="Expenses Reports" />
+            <item
+                android:id="@+id/nav_report_activities"
+                android:title="Activities Reports" />
+        </menu>
+    </item>
+
 
 </menu>

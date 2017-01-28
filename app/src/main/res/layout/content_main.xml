@@ -13,4 +13,5 @@
     tools:context="pt.ezn.apps.servicereports.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+
 </RelativeLayout>

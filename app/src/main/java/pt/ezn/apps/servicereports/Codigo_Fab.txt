@@ -1,0 +1,168 @@
+
+****************************************************************************************************
+    FAB
+
+
+colors.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#F44336</color>
+    <color name="colorFAB1">#2196F3</color>
+    <color name="colorFAB2">#E040FB</color>
+</resources>
+
+
+
+
+fab_open.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+    <scale
+        android:duration="300"
+        android:fromXScale="0.0"
+        android:fromYScale="0.0"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:toXScale="0.8"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toYScale="0.8" />
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:duration="300"/>
+</set>
+
+
+
+
+fab_close.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+    <scale
+        android:duration="300"
+        android:fromXScale="0.8"
+        android:fromYScale="0.8"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:toXScale="0.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toYScale="0.0" />
+    <alpha android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:duration="300"/>
+</set>
+
+
+
+
+
+rotate_forward.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true" >
+    <rotate android:fromDegrees="0"
+        android:toDegrees="45"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="300"
+        android:interpolator="@android:anim/linear_interpolator"/>
+</set>
+
+
+
+
+rotate_backward.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true" >
+    <rotate android:fromDegrees="45"
+        android:toDegrees="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="300"
+        android:interpolator="@android:anim/linear_interpolator"/>
+</set>
+
+public void animateFAB(){
+
+    if(isFabOpen){
+
+        fab.startAnimation(rotate_backward);
+        fab1.startAnimation(fab_close);
+        fab2.startAnimation(fab_close);
+        fab1.setClickable(false);
+        fab2.setClickable(false);
+        isFabOpen = false;
+        Log.d("Raj", "close");
+
+    } else {
+
+        fab.startAnimation(rotate_forward);
+        fab1.startAnimation(fab_open);
+        fab2.startAnimation(fab_open);
+        fab1.setClickable(true);
+        fab2.setClickable(true);
+        isFabOpen = true;
+        Log.d("Raj","open");
+
+    }
+}
+
+
+   @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.fab:
+
+                animateFAB();
+                break;
+            case R.id.fab1:
+
+                Log.d("Raj", "Fab 1");
+                break;
+            case R.id.fab2:
+
+                Log.d("Raj", "Fab 2");
+                break;
+        }
+    }
+
+    public void animateFAB(){
+
+        if(isFabOpen){
+
+            fab.startAnimation(rotate_backward);
+            fab1.startAnimation(fab_close);
+            fab2.startAnimation(fab_close);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isFabOpen = false;
+            Log.d("Raj", "close");
+
+        } else {
+
+            fab.startAnimation(rotate_forward);
+            fab1.startAnimation(fab_open);
+            fab2.startAnimation(fab_open);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isFabOpen = true;
+            Log.d("Raj","open");
+
+        }
+    }
+***************************************************************************************************
+
+
