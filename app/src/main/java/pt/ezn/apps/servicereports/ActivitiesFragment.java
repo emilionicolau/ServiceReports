@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ActivitiesFragment extends Fragment {
+
+
+    RecyclerView recycler;
+    ArrayList<ServiceActivity> serviceActivityArrayList;
 
 
     public ActivitiesFragment() {
@@ -35,6 +43,17 @@ public class ActivitiesFragment extends Fragment {
                         .setAction("Action", null).show();
             }
         });
+
+        //criar um recyclerview
+        recycler = (RecyclerView) view.findViewById(R.id.rv_activities);
+        recycler.setHasFixedSize(true);
+        //criar layout manager e associa-lo ao recycler
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        recycler.setLayoutManager(manager);
+
+        ReportsDatabaseAdapter reportAdapter = new ReportsDatabaseAdapter(this.getContext());
+
+        ActivityAdapter activityAdapter = new ActivityAdapter(this.getContext(), serviceActivityArrayList);
 
 
 

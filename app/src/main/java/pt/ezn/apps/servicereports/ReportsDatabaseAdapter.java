@@ -33,6 +33,7 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_DATE, serviceActivity.getDate());
         cv.put(ReportsHelper.COL_HOUR_BEGIN, serviceActivity.getHourBegin());
         cv.put(ReportsHelper.COL_HOUR_END, serviceActivity.getHourEnd());
+        cv.put(ReportsHelper.COL_TOTAL_HOUR, serviceActivity.getTotalHours());
         cv.put(ReportsHelper.COL_TRAVEL_TIME, serviceActivity.getTravelTime());
         cv.put(ReportsHelper.COL_TRAVEL_DISTANCE, serviceActivity.getTravelDistance());
         cv.put(ReportsHelper.COL_WORK_DESC, serviceActivity.getWorkDesc());
@@ -79,12 +80,22 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_CAREXPENSES, dailyExpense.getCarExpenses());
         cv.put(ReportsHelper.COL_TRAVEL, dailyExpense.getTravel());
         cv.put(ReportsHelper.COL_OTHER_EXPENSES, dailyExpense.getOtherExpenses());
+        cv.put(ReportsHelper.COL_TOTAL_EXPENSES, dailyExpense.getTotalExpenses());
         cv.put(ReportsHelper.COL_NOTES, dailyExpense.getNotes());
 
         long result = db.insert(ReportsHelper.TABLE_2_NAME, null, cv);
         return result;
 
     }
+
+
+    //TODO metodo para ler uma actividade determinada da db sabendo o id
+
+
+    //TODO metodo para ler uma despesa determinada da db sabendo o id
+
+
+    //TODO metodo para ler um cliente determinado da db sabendo o id
 
 
 
@@ -100,6 +111,7 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_DATE = "Date";
         private static final String COL_HOUR_BEGIN = "Hour_Begin";
         private static final String COL_HOUR_END = "Hour_End";
+        private static final String COL_TOTAL_HOUR = "Total_Hours";
         private static final String COL_TRAVEL_TIME = "Travel_Time";
         private static final String COL_TRAVEL_DISTANCE = "Travel_Distance";
         private static final String COL_WORK_DESC = "Work_Desc";
@@ -123,6 +135,7 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_CAREXPENSES = "CarExpenses";
         private static final String COL_TRAVEL = "Travel";
         private static final String COL_OTHER_EXPENSES = "Other_Expenses";
+        private static final String COL_TOTAL_EXPENSES = "Total_Expenses";
 
         private static final String CREATE_TABLE_1 = "CREATE TABLE "+TABLE_1_NAME+"("+
                 COL_ID+" INTEGER PRIMARY KEY,  "+
@@ -131,6 +144,7 @@ public class ReportsDatabaseAdapter  {
                 COL_DATE+" INTEGER NOT NULL, "+
                 COL_HOUR_BEGIN+" INTEGER, "+
                 COL_HOUR_END+" INTEGER, "+
+                COL_TOTAL_HOUR +" INTEGER, "+
                 COL_TRAVEL_TIME+" INTEGER, "+
                 COL_TRAVEL_DISTANCE+" INTEGER, "+
                 COL_WORK_DESC+" TEXT, "+
@@ -162,6 +176,7 @@ public class ReportsDatabaseAdapter  {
                 COL_CAREXPENSES+" INTEGER, "+
                 COL_TRAVEL+" INTEGER, "+
                 COL_OTHER_EXPENSES+" INTEGER, "+
+                COL_TOTAL_EXPENSES+" INTEGER, "+
                 COL_NOTES+" TEXT)";
 
 

@@ -1,14 +1,16 @@
 package pt.ezn.apps.servicereports;
 
+import java.io.Serializable;
+
 /**
  * Created by Emilio on 15/01/2017.
  ServiceReports
  */
 
-public class Client {
+public class Client implements Serializable {
 
     private String clientName, clientAdress, clientContacts, clientEquipments, clientNotes;
-    private int clientPhone, clientMobil, clientKms;
+    private int clientId, clientPhone, clientMobil, clientKms;
 
     public Client() {
     }
@@ -43,6 +45,14 @@ public class Client {
 
     public void setClientNotes(String clientNotes) {
         this.clientNotes = clientNotes;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public String getClientAdress() {

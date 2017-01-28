@@ -1,17 +1,23 @@
 package pt.ezn.apps.servicereports;
 
+import java.io.Serializable;
+
 /**
  * Created by Emilio on 15/01/2017.
  ServiceReports
  */
 
-public class ServiceActivity {
+public class ServiceActivity implements Serializable{
 
 
     private String client, equipment, workDesc, notes;
-    private int date, hourBegin, hourEnd, travelTime, travelDistance;
+    private int serviceId, date, hourBegin, hourEnd,totalHours, travelTime, travelDistance;
 
     public ServiceActivity() {
+        if (hourBegin > 0 && hourEnd >0) {
+            int hours = hourEnd - hourBegin;
+            this.setTotalHours(hours);
+        }
     }
 
 
@@ -49,6 +55,22 @@ public class ServiceActivity {
 
     public void setWorkDesc(String workDesc) {
         this.workDesc = workDesc;
+    }
+
+    public int getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public int getTotalHours() {
+        return totalHours;
+    }
+
+    public void setTotalHours(int totalHours) {
+        this.totalHours = totalHours;
     }
 
     public String getClient() {

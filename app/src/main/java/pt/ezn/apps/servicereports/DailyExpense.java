@@ -1,14 +1,16 @@
 package pt.ezn.apps.servicereports;
 
+import java.io.Serializable;
+
 /**
  * Created by Emilio on 15/01/2017.
  ServiceReports
  */
 
-public class DailyExpense {
+public class DailyExpense implements Serializable{
 
-    private int date, kms;
-    private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses;
+    private int expenseId, date, kms;
+    private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses, totalExpenses;
     private String notes;
 
     public DailyExpense() {
@@ -56,6 +58,22 @@ public class DailyExpense {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public int getExpenseId() {
+        return expenseId;
+    }
+
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
+    }
+
+    public float getTotalExpenses() {
+        return totalExpenses;
+    }
+
+    public void setTotalExpenses(float totalExpenses) {
+        this.totalExpenses = totalExpenses;
     }
 
     public int getDate() {
