@@ -1,5 +1,7 @@
 package pt.ezn.apps.servicereports;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+    public static final String PREF_FILE_NAME = "servicepref";
 
 
     ReportsDatabaseAdapter db;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -41,6 +45,13 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    protected void onRestart() {
+        setActionBarTitle("Service  Reports");
+        super.onRestart();
     }
 
     @Override
@@ -70,18 +81,22 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            loadFragmentSettings();
             return true;
         }
         if (id == R.id.action_cancel_add_activity){
-            loadFragmentActivities();
+            //loadFragmentActivities();
+            onBackPressed();
             return true;
         }
         if (id == R.id.action_cancel_add_expense){
-            loadFragmentExpenses();
+            //loadFragmentExpenses();
+            onBackPressed();
             return true;
         }
         if (id == R.id.action_cancel_add_client){
-            loadFragmentClients();
+            //loadFragmentClients();
+            onBackPressed();
             return true;
         }
 
@@ -89,7 +104,7 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -115,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void loadFragmentClient() {
         ClientFragment fragment = new ClientFragment();
@@ -176,6 +192,16 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    public void loadFragmentSettings() {
+        //colocar o fragmento actividades
+        SettingsFragment fragment = new SettingsFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -189,6 +215,18 @@ public class MainActivity extends AppCompatActivity
         getSupportActionBar().setTitle(title);
     }
 
+    //metodo para guardar preferencias
+    public static void saveToPreferences (Context context,String preferenceName, String preferenceValue ){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(preferenceName, preferenceValue);
+        editor.apply();
 
+    }
+
+    public static String readFromPreferences (Context context,String preferenceName, String defaulltValue ){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(preferenceName, defaulltValue);
+    }
 
 }
