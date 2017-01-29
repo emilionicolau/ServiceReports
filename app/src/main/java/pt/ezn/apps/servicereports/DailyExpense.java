@@ -9,16 +9,17 @@ import java.io.Serializable;
 
 public class DailyExpense implements Serializable{
 
-    private int expenseId, date, kms;
+    private int expenseId, day, month, year, kms;
     private float meal, fuel, fuelAmount, hotel, parking, carExpenses, travel, otherExpenses, totalExpenses;
     private String notes;
 
     public DailyExpense() {
     }
 
-    public void setDate(int date) {
-        this.date = date;
+    public String Date(){
+        return getDay() + "/" + getMonth() + "/" + getYear();
     }
+
 
     public void setKms(int kms) {
         this.kms = kms;
@@ -76,8 +77,28 @@ public class DailyExpense implements Serializable{
         this.totalExpenses = totalExpenses;
     }
 
-    public int getDate() {
-        return date;
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public int getKms() {

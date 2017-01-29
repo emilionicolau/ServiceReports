@@ -1,5 +1,6 @@
 package pt.ezn.apps.servicereports;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ClientFragment.OnFragmentInteractionListener,
+        ActivityFragment.OnFragmentInteractionListener, ExpenseFragment.OnFragmentInteractionListener{
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
@@ -27,18 +28,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //colocar o fragmento inicial/actividades
-        ActivitiesFragment fragment = new ActivitiesFragment();
-        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
-        fragmentTransaction.commit();
+        loadFragmentActivities();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -78,6 +72,19 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_cancel_add_activity){
+            loadFragmentActivities();
+            return true;
+        }
+        if (id == R.id.action_cancel_add_expense){
+            loadFragmentExpenses();
+            return true;
+        }
+        if (id == R.id.action_cancel_add_client){
+            loadFragmentClients();
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -89,39 +96,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_activities) {
-
-            //colocar o fragmento actividades
-            ActivitiesFragment fragment = new ActivitiesFragment();
-            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
-            fragmentTransaction.commit();
-
-            Toast.makeText(this, "menu item activities",Toast.LENGTH_LONG).show();
+            loadFragmentActivities();
 
         } else if (id == R.id.nav_clients) {
-
-            //colocar o fragmento clientes
-            ClientsFragment fragment = new ClientsFragment();
-            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
-            fragmentTransaction.commit();
-
-            Toast.makeText(this, "menu item clientes",Toast.LENGTH_LONG).show();
+            loadFragmentClients();
 
         } else if (id == R.id.nav_expenses) {
-
-            //colocar o fragmento despesas
-            ExpensesFragment fragment = new ExpensesFragment();
-            android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = manager.beginTransaction();
-            fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
-            fragmentTransaction.commit();
-
-            Toast.makeText(this, "menu item despesas",Toast.LENGTH_LONG).show();
+            loadFragmentExpenses();
 
         } else if (id == R.id.nav_report_expenses) {
+            loadFragmentClient();
 
         } else if (id == R.id.nav_report_activities) {
 
@@ -131,4 +115,80 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void loadFragmentClient() {
+        ClientFragment fragment = new ClientFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        ;
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragmentExpenses() {
+        //colocar o fragmento despesas
+        ExpensesFragment fragment = new ExpensesFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragmentClients() {
+        //colocar o fragmento clientes
+        ClientsFragment fragment = new ClientsFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragmentActivities() {
+        //colocar o fragmento actividades
+        ActivitiesFragment fragment = new ActivitiesFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragmentActivity() {
+        //colocar o fragmento actividades
+        ActivityFragment fragment = new ActivityFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void loadFragmentExpense() {
+        //colocar o fragmento actividades
+        ExpenseFragment fragment = new ExpenseFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+
+
+    //para os fragmentos poderem mudar o titulo da toolbar
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+
+
 }

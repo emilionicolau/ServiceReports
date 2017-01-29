@@ -50,7 +50,7 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         //criar um objecto serviceactivity da position do arraylist
         ServiceActivity serviceActivity = serviceActivitList.get(position);
         //colocar no cardview os valores do objecto serviceactivity
-        holder.tvDate.setText(serviceActivity.getDate());
+        holder.tvDate.setText(serviceActivity.Date());
         holder.tvClient.setText(serviceActivity.getClient());
         holder.tvDescr.setText(serviceActivity.getWorkDesc());
     }

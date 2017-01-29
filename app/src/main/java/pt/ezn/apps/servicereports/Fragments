@@ -1,0 +1,20 @@
+
+Not sure what you are trying to accomplish but I think, if possible, you should approach this by
+letting the fragments customize your toolbar rather than replacing it. Your can let your fragments
+hide/show views on the toolbar depending on your needs.
+
+Add setHasOptionsMenu(true); in the fragments OnCreateView() and then override onOptionsMenuCreated()
+
+Like this:
+
+@Override
+public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    setHasOptionsMenu(true);
+    return inflater.inflate(R.layout.result_list, container, false);
+}
+
+@Override
+public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.this_frag_menu, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+}

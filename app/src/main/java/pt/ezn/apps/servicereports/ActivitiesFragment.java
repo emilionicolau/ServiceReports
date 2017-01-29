@@ -3,7 +3,6 @@ package pt.ezn.apps.servicereports;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +19,8 @@ import java.util.ArrayList;
 public class ActivitiesFragment extends Fragment {
 
 
+
+
     RecyclerView recycler;
     ArrayList<ServiceActivity> serviceActivityArrayList;
 
@@ -28,10 +29,21 @@ public class ActivitiesFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Activities");
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_activities);
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_activities, container, false);
 
@@ -39,8 +51,7 @@ public class ActivitiesFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Fab activity", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                ((MainActivity) getActivity()).loadFragmentActivity();
             }
         });
 

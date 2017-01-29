@@ -3,7 +3,6 @@ package pt.ezn.apps.servicereports;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,20 @@ public class ExpensesFragment extends Fragment {
 
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity) getActivity()).setActionBarTitle("Expenses");
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_expenses);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_expenses, container, false);
 
@@ -31,12 +42,13 @@ public class ExpensesFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Fab expenses", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                ((MainActivity) getActivity()).loadFragmentExpense();
             }
         });
 
         return view;
     }
+
+
 
 }

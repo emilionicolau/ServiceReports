@@ -30,7 +30,9 @@ public class ReportsDatabaseAdapter  {
 
         cv.put(ReportsHelper.COL_CLIENT_ID, serviceActivity.getClient());
         cv.put(ReportsHelper.COL_EQUIPMENT, serviceActivity.getEquipment());
-        cv.put(ReportsHelper.COL_DATE, serviceActivity.getDate());
+        cv.put(ReportsHelper.COL_DAY, serviceActivity.getDay());
+        cv.put(ReportsHelper.COL_MONTH, serviceActivity.getMonth());
+        cv.put(ReportsHelper.COL_YEAR, serviceActivity.getYear());
         cv.put(ReportsHelper.COL_HOUR_BEGIN, serviceActivity.getHourBegin());
         cv.put(ReportsHelper.COL_HOUR_END, serviceActivity.getHourEnd());
         cv.put(ReportsHelper.COL_TOTAL_HOUR, serviceActivity.getTotalHours());
@@ -70,7 +72,9 @@ public class ReportsDatabaseAdapter  {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(ReportsHelper.COL_DATE, dailyExpense.getDate());
+        cv.put(ReportsHelper.COL_DAY, dailyExpense.getDay());
+        cv.put(ReportsHelper.COL_MONTH, dailyExpense.getMonth());
+        cv.put(ReportsHelper.COL_YEAR, dailyExpense.getYear());
         cv.put(ReportsHelper.COL_KMS, dailyExpense.getKms());
         cv.put(ReportsHelper.COL_MEAL, dailyExpense.getMeal());
         cv.put(ReportsHelper.COL_FUEL, dailyExpense.getFuel());
@@ -108,7 +112,9 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_ID = "_id";
         private static final String COL_CLIENT_ID = "Client_id";
         private static final String COL_EQUIPMENT = "Equipment";
-        private static final String COL_DATE = "Date";
+        private static final String COL_DAY = "Day";
+        private static final String COL_MONTH = "Month";
+        private static final String COL_YEAR = "YEAR";
         private static final String COL_HOUR_BEGIN = "Hour_Begin";
         private static final String COL_HOUR_END = "Hour_End";
         private static final String COL_TOTAL_HOUR = "Total_Hours";
@@ -141,7 +147,9 @@ public class ReportsDatabaseAdapter  {
                 COL_ID+" INTEGER PRIMARY KEY,  "+
                 COL_CLIENT_ID+" INTEGER, "+
                 COL_EQUIPMENT+" TEXT, "+
-                COL_DATE+" INTEGER NOT NULL, "+
+                COL_DAY+" INTEGER NOT NULL, "+
+                COL_MONTH+" INTEGER NOT NULL, "+
+                COL_YEAR+" INTEGER NOT NULL, "+
                 COL_HOUR_BEGIN+" INTEGER, "+
                 COL_HOUR_END+" INTEGER, "+
                 COL_TOTAL_HOUR +" INTEGER, "+
@@ -166,7 +174,9 @@ public class ReportsDatabaseAdapter  {
 
         private static final String CREATE_TABLE_3 = "CREATE TABLE "+TABLE_3_NAME+"("+
                 COL_ID+" INTEGER PRIMARY KEY,  "+
-                COL_DATE+" INTEGER NOT NULL, "+
+                COL_DAY+" INTEGER NOT NULL, "+
+                COL_MONTH+" INTEGER NOT NULL, "+
+                COL_YEAR+" INTEGER NOT NULL, "+
                 COL_KMS+" INTEGER, "+
                 COL_MEAL +" INTEGER, "+
                 COL_FUEL+" INTEGER, "+

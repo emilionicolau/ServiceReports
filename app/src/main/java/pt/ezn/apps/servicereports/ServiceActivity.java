@@ -11,7 +11,7 @@ public class ServiceActivity implements Serializable{
 
 
     private String client, equipment, workDesc, notes;
-    private int serviceId, date, hourBegin, hourEnd,totalHours, travelTime, travelDistance;
+    private int serviceId, day, month, year, hourBegin, hourEnd,totalHours, travelTime, travelDistance;
 
     public ServiceActivity() {
         if (hourBegin > 0 && hourEnd >0) {
@@ -20,14 +20,16 @@ public class ServiceActivity implements Serializable{
         }
     }
 
+    public String Date(){
+        return getDay() + "/" + getMonth() + "/" + getYear();
+    }
+
 
     public void setClient(String client) {
         this.client = client;
     }
 
-    public void setDate(int date) {
-        this.date = date;
-    }
+
 
     public void setEquipment(String equipment) {
         this.equipment = equipment;
@@ -77,8 +79,28 @@ public class ServiceActivity implements Serializable{
         return client;
     }
 
-    public int getDate() {
-        return date;
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     public String getEquipment() {
