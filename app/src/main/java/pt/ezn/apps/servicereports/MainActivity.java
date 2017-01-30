@@ -13,32 +13,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ClientFragment.OnFragmentInteractionListener,
-        ActivityFragment.OnFragmentInteractionListener, ExpenseFragment.OnFragmentInteractionListener{
+        implements OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView = null;
     Toolbar toolbar = null;
     public static final String PREF_FILE_NAME = "servicepref";
-
-
+    public int level = 0;
     ReportsDatabaseAdapter db;
+    ActionBarDrawerToggle toggle;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //colocar o fragmento inicial/actividades
+        //carregar o fragmento inicial/actividades
         loadFragmentActivities();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -46,7 +50,37 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+        //para gerir a navegação entre fragmentos. O icon "back" só aparece quando está carregado
+        //um fragmento de nivel superior a 0 e o backstack é maior que 1.
+        getSupportFragmentManager().addOnBackStackChangedListener(new android.support.v4.app.FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 1 && level > 0) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true); // show back button
+                    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            onBackPressed();
+                        }
+                    });
+                } else {
+                    //show hamburger
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                    toggle.syncState();
+                    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            drawer.openDrawer(GravityCompat.START);
+                        }
+                    });
+                }
+            }
+        });
+
     }
+
+
 
     @Override
     protected void onRestart() {
@@ -56,19 +90,21 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-
+        level--;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
+
+        //toggle.setDrawerIndicatorEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -79,11 +115,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            loadFragmentSettings();
-            return true;
-        }
+
         if (id == R.id.action_cancel_add_activity){
             //loadFragmentActivities();
             onBackPressed();
@@ -107,22 +139,29 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        // navigation view item clicks.
         int id = item.getItemId();
 
         if (id == R.id.nav_activities) {
+            level = 0;
             loadFragmentActivities();
 
         } else if (id == R.id.nav_clients) {
+            level = 0;
             loadFragmentClients();
 
         } else if (id == R.id.nav_expenses) {
+            level = 0;
             loadFragmentExpenses();
 
         } else if (id == R.id.nav_report_expenses) {
-            loadFragmentClient();
+
 
         } else if (id == R.id.nav_report_activities) {
+
+        } else if (id == R.id.nav_settings){
+            level = 0;
+            loadFragmentSettings();
 
         }
 
@@ -132,18 +171,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void loadFragmentClient() {
-        ClientFragment fragment = new ClientFragment();
-        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
-        fragmentTransaction.addToBackStack(null);
-        ;
-        fragmentTransaction.commit();
-    }
+
+
 
     public void loadFragmentExpenses() {
-        //colocar o fragmento despesas
+        //carregar o fragmento despesas
+        level = 0;
         ExpensesFragment fragment = new ExpensesFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -153,7 +186,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadFragmentClients() {
-        //colocar o fragmento clientes
+        //carregar o fragmento clientes
+        level = 0;
         ClientsFragment fragment = new ClientsFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -163,7 +197,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadFragmentActivities() {
-        //colocar o fragmento actividades
+        //carregar o fragmento actividades
+        level = 0;
         ActivitiesFragment fragment = new ActivitiesFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -172,8 +207,21 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    public void loadFragmentClient() {
+        //carregar o fragmento client
+        level = 1;
+        ClientFragment fragment = new ClientFragment();
+        android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment, fragment.getTag());
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
     public void loadFragmentActivity() {
-        //colocar o fragmento actividades
+        //carregar o fragmento actividades
+        level = 1;
         ActivityFragment fragment = new ActivityFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -183,7 +231,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadFragmentExpense() {
-        //colocar o fragmento actividades
+        //carregar o fragmento actividades
+        level = 1;
         ExpenseFragment fragment = new ExpenseFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -193,7 +242,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadFragmentSettings() {
-        //colocar o fragmento actividades
+        //carregar o fragmento actividades
+        level = 0;
         SettingsFragment fragment = new SettingsFragment();
         android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
@@ -201,6 +251,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
 
     @Override
@@ -224,6 +275,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //metodo para ler preferencias
     public static String readFromPreferences (Context context,String preferenceName, String defaulltValue ){
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_FILE_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(preferenceName, defaulltValue);
