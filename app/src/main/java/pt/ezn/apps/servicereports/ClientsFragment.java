@@ -4,15 +4,22 @@ package pt.ezn.apps.servicereports;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ClientsFragment extends Fragment {
+
+    RecyclerView clientsRecycler;
+    ArrayList<Client> serviceClientsArrayList;
 
 
     public ClientsFragment() {
@@ -45,6 +52,17 @@ public class ClientsFragment extends Fragment {
                 ((MainActivity) getActivity()).loadFragmentClient();
             }
         });
+
+        clientsRecycler = (RecyclerView) view.findViewById(R.id.rv_clients);
+        clientsRecycler.setHasFixedSize(true);
+        //criar layout manager e associa-lo ao activitiesRecycler
+        LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
+        clientsRecycler.setLayoutManager(manager);
+
+        ReportsDatabaseAdapter reportAdapter = new ReportsDatabaseAdapter(this.getContext());
+
+        ClientsAdapter clientAdapter = new ClientsAdapter(this.getContext(), serviceClientsArrayList);
+        clientsRecycler.setAdapter(clientAdapter);
 
 
         return  view;

@@ -15,19 +15,19 @@ import java.util.ArrayList;
  * ServiceReports
  */
 
-public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {
+public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.ActivityViewHolder> {
 
     private Context mcontext;
     private ArrayList<ServiceActivity> serviceActivitList;
 
     //construtor do adapter
-    public ActivityAdapter (Context context, ArrayList<ServiceActivity> serviceList){
+    public ActivitiesAdapter(Context context, ArrayList<ServiceActivity> serviceList){
         this.mcontext = context;
         this.serviceActivitList = serviceList;
 
     }
 
-    //seters para o caso de queremos atribuir valores a context e serviceActivitList sem ser pelo construtor
+    //seter para o caso de queremos atribuir valores a context e serviceActivitList sem ser pelo construtor
     public void setMcontext(Context mcontext) {
         this.mcontext = mcontext;
     }
@@ -74,9 +74,9 @@ public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.Activi
         public ActivityViewHolder(View itemView) {
             super(itemView);
             activityCardview = (CardView)itemView.findViewById(R.id.cardview_activity);
-            tvDate = (TextView)itemView.findViewById(R.id.tvDate);
-            tvClient = (TextView)itemView.findViewById(R.id.tvClient);
-            tvDescr = (TextView)itemView.findViewById(R.id.tvDescr);
+            tvDate = (TextView)itemView.findViewById(R.id.tvActivityCVDate);
+            tvClient = (TextView)itemView.findViewById(R.id.tvActivityCVClient);
+            tvDescr = (TextView)itemView.findViewById(R.id.tvActivityCVDescr);
         }
 
 

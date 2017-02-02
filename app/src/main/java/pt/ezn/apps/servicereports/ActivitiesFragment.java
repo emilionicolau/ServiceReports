@@ -18,10 +18,7 @@ import java.util.ArrayList;
  */
 public class ActivitiesFragment extends Fragment {
 
-
-
-
-    RecyclerView recycler;
+    RecyclerView activitiesRecycler;
     ArrayList<ServiceActivity> serviceActivityArrayList;
 
 
@@ -57,15 +54,16 @@ public class ActivitiesFragment extends Fragment {
         });
 
         //criar um recyclerview
-        recycler = (RecyclerView) view.findViewById(R.id.rv_activities);
-        recycler.setHasFixedSize(true);
-        //criar layout manager e associa-lo ao recycler
+        activitiesRecycler = (RecyclerView) view.findViewById(R.id.rv_activities);
+        activitiesRecycler.setHasFixedSize(true);
+        //criar layout manager e associa-lo ao activitiesRecycler
         LinearLayoutManager manager = new LinearLayoutManager(view.getContext());
-        recycler.setLayoutManager(manager);
+        activitiesRecycler.setLayoutManager(manager);
 
         ReportsDatabaseAdapter reportAdapter = new ReportsDatabaseAdapter(this.getContext());
 
-        ActivityAdapter activityAdapter = new ActivityAdapter(this.getContext(), serviceActivityArrayList);
+        ActivitiesAdapter activityAdapter = new ActivitiesAdapter(this.getContext(), serviceActivityArrayList);
+        activitiesRecycler.setAdapter(activityAdapter);
 
 
 

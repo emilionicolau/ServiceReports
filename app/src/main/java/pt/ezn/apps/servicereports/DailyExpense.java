@@ -14,10 +14,23 @@ public class DailyExpense implements Serializable{
     private String notes;
 
     public DailyExpense() {
+        meal=0;
+        fuel=0;
+        fuelAmount=0;
+        hotel=0;
+        parking=0;
+        carExpenses=0;
+        travel=0;
+        otherExpenses=0;
+        totalExpenses=0;
     }
 
-    public String Date(){
+    public String getDate(){
         return getDay() + "/" + getMonth() + "/" + getYear();
+    }
+
+    public void updateTotal(){
+        totalExpenses = meal+fuel+hotel+parking+carExpenses+travel+otherExpenses;
     }
 
 
@@ -27,6 +40,7 @@ public class DailyExpense implements Serializable{
 
     public void setFuel(float fuel) {
         this.fuel = fuel;
+        updateTotal();
     }
 
     public void setFuelAmount(float fuelAmount) {
@@ -35,26 +49,32 @@ public class DailyExpense implements Serializable{
 
     public void setHotel(float hotel) {
         this.hotel = hotel;
+        updateTotal();
     }
 
     public void setMeal(float meal) {
         this.meal = meal;
+        updateTotal();
     }
 
     public void setOtherExpenses(float otherExpenses) {
         this.otherExpenses = otherExpenses;
+        updateTotal();
     }
 
     public void setParking(float parking) {
         this.parking = parking;
+        updateTotal();
     }
 
     public void setTravel(float travel) {
         this.travel = travel;
+        updateTotal();
     }
 
     public void setCarExpenses(float carExpenses) {
         this.carExpenses = carExpenses;
+        updateTotal();
     }
 
     public void setNotes(String notes) {
@@ -65,17 +85,11 @@ public class DailyExpense implements Serializable{
         return expenseId;
     }
 
-    public void setExpenseId(int expenseId) {
-        this.expenseId = expenseId;
-    }
 
     public float getTotalExpenses() {
         return totalExpenses;
     }
 
-    public void setTotalExpenses(float totalExpenses) {
-        this.totalExpenses = totalExpenses;
-    }
 
     public int getDay() {
         return day;
@@ -140,4 +154,6 @@ public class DailyExpense implements Serializable{
     public String getNotes() {
         return notes;
     }
+
+
 }

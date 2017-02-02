@@ -31,6 +31,9 @@ public class ClientFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
+
+
     public ClientFragment() {
         // Required empty public constructor
     }

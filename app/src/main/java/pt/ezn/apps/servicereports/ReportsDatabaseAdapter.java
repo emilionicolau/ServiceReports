@@ -125,6 +125,7 @@ public class ReportsDatabaseAdapter  {
 
         private static final String TABLE_2_NAME = "Clients";
         private static final String COL_NAME = "Name";
+        private static final String COL_TYPE = "Type";
         private static final String COL_ADDRESS = "Address";
         private static final String COL_CONTACTS = "Contacts";
         private static final String COL_EQUIPMENTS = "Equipments";
@@ -165,6 +166,7 @@ public class ReportsDatabaseAdapter  {
                 COL_NAME+" TEXT NOT NULL, "+
                 COL_ADDRESS+" TEXT, "+
                 COL_CONTACTS+" TEXT, "+
+                COL_TYPE+" TEXT, "+
                 COL_EQUIPMENTS+" TEXT, "+
                 COL_PHONE+" INTEGER, "+
                 COL_MOBIL+" INTEGER, "+

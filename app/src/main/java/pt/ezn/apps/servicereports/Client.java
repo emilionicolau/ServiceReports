@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Client implements Serializable {
 
-    private String clientName, clientAdress, clientContacts, clientEquipments, clientNotes;
+    private String clientName,clientType, clientAdress, clientContacts, clientEquipments, clientNotes;
     private int clientId, clientPhone, clientMobil, clientKms;
 
     public Client() {
@@ -21,6 +21,14 @@ public class Client implements Serializable {
 
     public void setClientContacts(String clientContacts) {
         this.clientContacts = clientContacts;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 
     public void setClientEquipments(String clientEquipments) {
@@ -51,9 +59,6 @@ public class Client implements Serializable {
         return clientId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
-    }
 
     public String getClientAdress() {
         return clientAdress;
