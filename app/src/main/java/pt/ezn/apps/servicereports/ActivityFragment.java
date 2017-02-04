@@ -1,5 +1,6 @@
 package pt.ezn.apps.servicereports;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -28,6 +38,11 @@ public class ActivityFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private int day, month, year;
+    private Calendar todayCalendar = Calendar.getInstance();
+    private TextView tvDate;
+    private Spinner clientSpinner;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,8 +89,89 @@ public class ActivityFragment extends Fragment {
         setHasOptionsMenu(true);
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_activity, container, false);
+        View view = inflater.inflate(R.layout.fragment_activity, container, false);
+
+        //inicializar a base de dados
+        ReportsDatabaseAdapter database = new ReportsDatabaseAdapter(getContext());
+
+        //view da data
+        tvDate = (TextView) view.findViewById(R.id.tvFragActDate);
+
+        //colocar a data actual
+        updateDate();
+        //ler a data
+        tvDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readDate();
+            }
+        });
+
+        lerSpinner(view, database);
+
+
+        return view;
+
     }
+
+
+    //metodo para ler o spinner
+    public void lerSpinner(View view, ReportsDatabaseAdapter database) {
+        clientSpinner = (Spinner) view.findViewById(R.id.spinnerClient);
+        final ArrayList<String> clientslist = database.getAllClients();
+        clientslist.add(0," ");
+        clientslist.add(1,"-- New client --");
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item,
+                clientslist);
+        clientSpinner.setAdapter(adapter);
+        clientSpinner.setSelection(0,false);
+        clientSpinner.setOnItemSelectedListener(new OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            {
+                if(position == 1){
+                    clientSpinner.setSelection(0,false);
+                    ((MainActivity) getActivity()).loadFragmentClient();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView)
+            {
+
+            }
+        });
+    }
+
+    public void updateDate() {
+        day = todayCalendar.get(Calendar.DAY_OF_MONTH);
+        month = todayCalendar.get(Calendar.MONTH) + 1;
+        year = todayCalendar.get(Calendar.YEAR);
+        String fDate = String.valueOf(day) + '-' + String.valueOf(month) + '-' + String.valueOf(year);
+        tvDate.setText(fDate);
+    }
+
+    private void readDate() {
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(),d, todayCalendar.get(Calendar.DAY_OF_MONTH), todayCalendar.get(Calendar.MONTH),
+                todayCalendar.get(Calendar.YEAR));
+        datePicker.updateDate(year,month-1,day);
+        datePicker.show();
+
+    }
+
+    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            todayCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            todayCalendar.set(Calendar.MONTH, month);
+            todayCalendar.set(Calendar.YEAR, year);
+            updateDate();
+
+        }
+    };
 
     //acrescentar opcoes ao menu da toolbar
     @Override

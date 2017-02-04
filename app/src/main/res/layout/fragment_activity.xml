@@ -9,9 +9,71 @@
     tools:context="pt.ezn.apps.servicereports.ActivityFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tvFragActDate"
+                android:id="@+id/tvDate"
+                android:textSize="@dimen/text_normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:id="@+id/tvFragActDate"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:textSize="@dimen/text_normal"/>
+
+            <View
+                android:id="@+id/SplitLine_hor1"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvFragActDate"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:text="Client"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/SplitLine_hor1"
+                android:paddingTop="12dp"
+                android:textSize="@dimen/text_normal"
+                android:id="@+id/tvClient" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/tvClient"
+                android:id="@+id/spinnerClient"
+                android:textAlignment="textEnd" />
+            <View
+                android:id="@+id/SplitLine_hor2"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvClient"
+                android:layout_marginTop="12dp"
+
+                android:background="@color/gray" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
 
 </FrameLayout>

@@ -49,6 +49,7 @@ public class ActivitiesFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((MainActivity) getActivity()).fragmentType = 'N';
                 ((MainActivity) getActivity()).loadFragmentActivity();
             }
         });

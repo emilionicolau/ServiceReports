@@ -2,8 +2,11 @@ package pt.ezn.apps.servicereports;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 /**
  * Created by Emilio on 16/01/2017.
@@ -42,6 +45,9 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_NOTES, serviceActivity.getNotes());
 
         long result = db.insert(ReportsHelper.TABLE_1_NAME, null, cv);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
         return result;
 
     }
@@ -62,6 +68,9 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_NOTES, client.getClientNotes());
 
         long result = db.insert(ReportsHelper.TABLE_2_NAME, null, cv);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
         return result;
 
     }
@@ -88,6 +97,9 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_NOTES, dailyExpense.getNotes());
 
         long result = db.insert(ReportsHelper.TABLE_2_NAME, null, cv);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
         return result;
 
     }
@@ -102,6 +114,24 @@ public class ReportsDatabaseAdapter  {
     //TODO metodo para ler um cliente determinado da db sabendo o id
 
 
+    public ArrayList<String> getAllClients(){
+        ArrayList<String> list = new ArrayList<String>();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        db.beginTransaction();
+        String selectQuery = "SELECT * FROM " + ReportsHelper.TABLE_2_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                String clientName = cursor.getString(cursor.getColumnIndex(ReportsHelper.COL_NAME));
+                list.add(clientName);
+            }
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+        return list;
+
+    }
 
 
     static class ReportsHelper extends SQLiteOpenHelper{
@@ -157,8 +187,7 @@ public class ReportsDatabaseAdapter  {
                 COL_TRAVEL_TIME+" INTEGER, "+
                 COL_TRAVEL_DISTANCE+" INTEGER, "+
                 COL_WORK_DESC+" TEXT, "+
-                COL_NOTES+" TEXT) " +
-                " FOREIGN KEY("+COL_ID+") REFERENCES "+TABLE_1_NAME+"("+COL_ID+"))";
+                COL_NOTES+" TEXT) " ;
 
 
         private static final String CREATE_TABLE_2 = "CREATE TABLE "+TABLE_2_NAME+"("+
@@ -171,7 +200,7 @@ public class ReportsDatabaseAdapter  {
                 COL_PHONE+" INTEGER, "+
                 COL_MOBIL+" INTEGER, "+
                 COL_KMS+" INTEGER, "+
-                COL_NOTES+" TEXT, ";
+                COL_NOTES+" TEXT) ";
 
 
         private static final String CREATE_TABLE_3 = "CREATE TABLE "+TABLE_3_NAME+"("+

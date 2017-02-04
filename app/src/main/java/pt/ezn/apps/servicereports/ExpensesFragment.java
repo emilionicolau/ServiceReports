@@ -67,8 +67,6 @@ public class ExpensesFragment extends Fragment {
 
 
 
-
-
         return view;
     }
 
