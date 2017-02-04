@@ -11,7 +11,7 @@ public class ServiceActivity implements Serializable{
 
 
     private String client, equipment, workDesc, notes;
-    private int serviceId, day, month, year, hourBegin, hourEnd,totalHours, travelTime, travelDistance;
+    private int serviceId, cliendId, day, month, year, hourBegin, hourEnd,totalHours, travelTime, travelDistance;
 
     public ServiceActivity() {
         if (hourBegin > 0 && hourEnd >0) {
@@ -129,5 +129,13 @@ public class ServiceActivity implements Serializable{
 
     public String getWorkDesc() {
         return workDesc;
+    }
+
+    public int getCliendId() {
+        return cliendId;
+    }
+
+    public void setCliendId(int cliendId) {
+        this.cliendId = cliendId;
     }
 }

@@ -29,6 +29,7 @@ public class ReportsDatabaseAdapter  {
     public long insertServiceActicity (ServiceActivity serviceActivity){
 
         SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
         ContentValues cv = new ContentValues();
 
         cv.put(ReportsHelper.COL_CLIENT_ID, serviceActivity.getClient());
@@ -56,6 +57,7 @@ public class ReportsDatabaseAdapter  {
     public long insertClient (Client client){
 
         SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
         ContentValues cv = new ContentValues();
 
         cv.put(ReportsHelper.COL_NAME, client.getClientName());
@@ -79,6 +81,7 @@ public class ReportsDatabaseAdapter  {
     public long insertDailyExpense (DailyExpense dailyExpense){
 
         SQLiteDatabase db = helper.getWritableDatabase();
+        db.beginTransaction();
         ContentValues cv = new ContentValues();
 
         cv.put(ReportsHelper.COL_DAY, dailyExpense.getDay());
@@ -133,6 +136,23 @@ public class ReportsDatabaseAdapter  {
 
     }
 
+    public int getClientId (String name){
+        int clientid = 0;
+        SQLiteDatabase db = helper.getReadableDatabase();
+        db.beginTransaction();
+        String selectQuery = "SELECT "+ReportsHelper.COL_ID+" FROM "+ReportsHelper.TABLE_2_NAME+" WHERE "
+                + ReportsHelper.COL_NAME+" = '"+name+"'";
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0){
+            cursor.moveToNext();
+            clientid = cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_ID));
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+        return clientid;
+    }
+
 
     static class ReportsHelper extends SQLiteOpenHelper{
 
@@ -144,7 +164,7 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_EQUIPMENT = "Equipment";
         private static final String COL_DAY = "Day";
         private static final String COL_MONTH = "Month";
-        private static final String COL_YEAR = "YEAR";
+        private static final String COL_YEAR = "Year";
         private static final String COL_HOUR_BEGIN = "Hour_Begin";
         private static final String COL_HOUR_END = "Hour_End";
         private static final String COL_TOTAL_HOUR = "Total_Hours";
@@ -175,7 +195,7 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_TOTAL_EXPENSES = "Total_Expenses";
 
         private static final String CREATE_TABLE_1 = "CREATE TABLE "+TABLE_1_NAME+"("+
-                COL_ID+" INTEGER PRIMARY KEY,  "+
+                COL_ID+" INTEGER PRIMARY KEY  AUTOINCREMENT ,  "+
                 COL_CLIENT_ID+" INTEGER, "+
                 COL_EQUIPMENT+" TEXT, "+
                 COL_DAY+" INTEGER NOT NULL, "+
@@ -191,7 +211,7 @@ public class ReportsDatabaseAdapter  {
 
 
         private static final String CREATE_TABLE_2 = "CREATE TABLE "+TABLE_2_NAME+"("+
-                COL_ID+" INTEGER PRIMARY KEY,  "+
+                COL_ID+" INTEGER PRIMARY KEY  AUTOINCREMENT ,  "+
                 COL_NAME+" TEXT NOT NULL, "+
                 COL_ADDRESS+" TEXT, "+
                 COL_CONTACTS+" TEXT, "+
@@ -204,7 +224,7 @@ public class ReportsDatabaseAdapter  {
 
 
         private static final String CREATE_TABLE_3 = "CREATE TABLE "+TABLE_3_NAME+"("+
-                COL_ID+" INTEGER PRIMARY KEY,  "+
+                COL_ID+" INTEGER PRIMARY KEY  AUTOINCREMENT ,  "+
                 COL_DAY+" INTEGER NOT NULL, "+
                 COL_MONTH+" INTEGER NOT NULL, "+
                 COL_YEAR+" INTEGER NOT NULL, "+

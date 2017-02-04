@@ -91,4 +91,8 @@ public class Client implements Serializable {
     public String getClientNotes() {
         return clientNotes;
     }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
 }

@@ -8,17 +8,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.R.attr.name;
 
 
 /**
@@ -42,6 +47,9 @@ public class ActivityFragment extends Fragment {
     private Calendar todayCalendar = Calendar.getInstance();
     private TextView tvDate;
     private Spinner clientSpinner;
+    private ServiceActivity serviceActivity = new ServiceActivity();
+    private EditText etEquipment;
+    private ReportsDatabaseAdapter database;
 
 
     private OnFragmentInteractionListener mListener;
@@ -92,10 +100,12 @@ public class ActivityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_activity, container, false);
 
         //inicializar a base de dados
-        ReportsDatabaseAdapter database = new ReportsDatabaseAdapter(getContext());
+        database = new ReportsDatabaseAdapter(getContext());
 
         //view da data
         tvDate = (TextView) view.findViewById(R.id.tvFragActDate);
+        etEquipment = (EditText) view.findViewById(R.id.etFragActEquips);
+
 
         //colocar a data actual
         updateDate();
@@ -107,6 +117,7 @@ public class ActivityFragment extends Fragment {
             }
         });
 
+        //ler o cliente ou criar um novo
         lerSpinner(view, database);
 
 
@@ -116,7 +127,7 @@ public class ActivityFragment extends Fragment {
 
 
     //metodo para ler o spinner
-    public void lerSpinner(View view, ReportsDatabaseAdapter database) {
+    public void lerSpinner(View view, final ReportsDatabaseAdapter database) {
         clientSpinner = (Spinner) view.findViewById(R.id.spinnerClient);
         final ArrayList<String> clientslist = database.getAllClients();
         clientslist.add(0," ");
@@ -135,6 +146,13 @@ public class ActivityFragment extends Fragment {
                     clientSpinner.setSelection(0,false);
                     ((MainActivity) getActivity()).loadFragmentClient();
                 }
+                else{
+                    String name = clientslist.get(position);
+                    int client_id = database.getClientId(name);
+                    serviceActivity.setClient(name);
+                    serviceActivity.setCliendId(client_id);
+                    //Toast.makeText(getContext(), name + " - " + String.valueOf(client_id), Toast.LENGTH_LONG).show();
+                }
 
             }
 
@@ -150,6 +168,10 @@ public class ActivityFragment extends Fragment {
         day = todayCalendar.get(Calendar.DAY_OF_MONTH);
         month = todayCalendar.get(Calendar.MONTH) + 1;
         year = todayCalendar.get(Calendar.YEAR);
+        //escrever os valores da data na variavel serviceActivity
+        serviceActivity.setDay(day);
+        serviceActivity.setMonth(month);
+        serviceActivity.setYear(year);
         String fDate = String.valueOf(day) + '-' + String.valueOf(month) + '-' + String.valueOf(year);
         tvDate.setText(fDate);
     }
@@ -178,6 +200,31 @@ public class ActivityFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_add_activity, menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_cancel_add_activity:
+                // Not implemented here
+                return false;
+            case R.id.action_save_activity:
+                saveActivity();
+                return true;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    private void saveActivity() {
+        serviceActivity.setEquipment(etEquipment.toString());
+
+        long feedback = database.insertServiceActicity(serviceActivity);
+
+        //getActivity().onBackPressed();
+        Toast.makeText(getContext(), name + " - " + String.valueOf(feedback), Toast.LENGTH_LONG).show();
     }
 
 

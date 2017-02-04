@@ -136,6 +136,16 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
+        if (id == R.id.action_save_activity){
+            return  false;
+        }
+        if (id == R.id.action_save_client){
+            return false;
+        }
+        if (id == R.id.action_save_expense){
+            return false;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

@@ -58,18 +58,36 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@id/tvClient"
                 android:layout_toRightOf="@+id/tvClient"
-                android:id="@+id/spinnerClient"
-                android:textAlignment="textEnd" />
+                android:textSize="@dimen/text_normal"
+                android:id="@+id/spinnerClient" />
             <View
                 android:id="@+id/SplitLine_hor2"
                 android:layout_width="match_parent"
                 android:layout_height= "2dp"
                 android:layout_below="@id/tvClient"
                 android:layout_marginTop="12dp"
-
                 android:background="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:inputType="textMultiLine"
+                android:layout_below="@id/SplitLine_hor2"
+                android:hint="add equipment..."
+                android:maxLength="100"
+                android:textSize="@dimen/text_normal"
+                android:background="@android:color/transparent"
+                android:id="@+id/etFragActEquips" />
+            <View
+                android:id="@+id/SplitLine_hor3"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/etFragActEquips"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
 
 
         </RelativeLayout>

@@ -155,5 +155,7 @@ public class DailyExpense implements Serializable{
         return notes;
     }
 
-
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
+    }
 }
