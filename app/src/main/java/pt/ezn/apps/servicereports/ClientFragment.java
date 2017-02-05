@@ -69,7 +69,7 @@ public class ClientFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Client");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.client));
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_clients);
         //para poder acrescentar opcions ao menu da toolbar
         setHasOptionsMenu(true);

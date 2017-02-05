@@ -27,7 +27,7 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:text="data"
+            android:text="@string/date"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:layout_marginRight="12dp"
@@ -36,7 +36,7 @@
             android:id="@+id/tvExpenseCVDate" />
 
         <TextView
-            android:text="total"
+            android:text="@string/total"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingTop="4dp"

@@ -5,12 +5,12 @@
     <item
         android:id="@+id/action_cancel_add_expense"
         android:orderInCategory="100"
-        android:title="Cancel"
+        android:title="@string/cancel"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_save_expense"
         android:orderInCategory="100"
-        android:title="Save"
+        android:title="@string/save"
         app:showAsAction="always" />
 
 

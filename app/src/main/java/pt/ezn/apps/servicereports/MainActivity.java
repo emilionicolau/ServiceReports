@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onRestart() {
-        setActionBarTitle("Service  Reports");
+        setActionBarTitle(getString(R.string.service_reports));
         super.onRestart();
     }
 

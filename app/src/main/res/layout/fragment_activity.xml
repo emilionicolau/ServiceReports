@@ -8,7 +8,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="pt.ezn.apps.servicereports.ActivityFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="Date"
+                android:text="@string/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tvFragActDate"
@@ -47,7 +46,7 @@
                 android:background="@color/gray" />
 
             <TextView
-                android:text="Client"
+                android:text="@string/client"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/SplitLine_hor1"
@@ -75,7 +74,7 @@
                 android:layout_height="60dp"
                 android:inputType="textMultiLine"
                 android:layout_below="@id/SplitLine_hor2"
-                android:hint="add equipment..."
+                android:hint="@string/add_equipment"
                 android:maxLength="100"
                 android:textSize="@dimen/text_normal"
                 android:background="@android:color/transparent"
@@ -88,6 +87,56 @@
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
 
+            <TextView
+                android:text="@string/begin_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_below="@id/SplitLine_hor3"
+                android:id="@+id/tvTimeBegin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_below="@id/SplitLine_hor3"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:id="@+id/etFragActTimeBegin" />
+
+            <View
+                android:id="@+id/SplitLine_hor4"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvTimeBegin"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:text="@string/end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_below="@id/SplitLine_hor4"
+                android:id="@+id/tvTimeEnd" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_below="@id/SplitLine_hor4"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:id="@+id/etFragActTimeEnd" />
+            <View
+                android:id="@+id/SplitLine_hor5"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvTimeEnd"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
 
 
         </RelativeLayout>

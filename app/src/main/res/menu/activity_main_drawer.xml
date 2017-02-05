@@ -6,25 +6,25 @@
         <item
             android:id="@+id/nav_activities"
             android:icon="@drawable/ic_activities"
-            android:title="Activities" />
+            android:title="@string/activities" />
         <item
             android:id="@+id/nav_expenses"
             android:icon="@drawable/ic_expenses"
-            android:title="Expenses" />
+            android:title="@string/expenses" />
         <item
             android:id="@+id/nav_clients"
             android:icon="@drawable/ic_customers"
-            android:title="Clients" />
+            android:title="@string/clients" />
     </group>
 
     <item android:title="Reports">
         <menu>
             <item
                 android:id="@+id/nav_report_expenses"
-                android:title="Expenses Reports" />
+                android:title="@string/expenses_reports" />
             <item
                 android:id="@+id/nav_report_activities"
-                android:title="Activities Reports" />
+                android:title="@string/activities_reports" />
         </menu>
     </item>
 

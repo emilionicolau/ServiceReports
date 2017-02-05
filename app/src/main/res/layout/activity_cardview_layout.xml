@@ -27,7 +27,7 @@
         android:paddingTop="8dp">
 
         <TextView
-            android:text="data"
+            android:text="@string/date"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:gravity="right"
@@ -37,7 +37,7 @@
             android:id="@+id/tvActivityCVDate" />
 
         <TextView
-            android:text="cliente"
+            android:text="@string/client"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:paddingTop="4dp"
@@ -46,7 +46,7 @@
             android:id="@+id/tvActivityCVClient" />
 
         <TextView
-            android:text="descripçao"
+            android:text="@string/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="4dp"

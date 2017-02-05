@@ -39,7 +39,7 @@ public class ExpensesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Expenses");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.expenses));
         //colocar o respectivo item em checked do drawer menu
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_expenses);
 

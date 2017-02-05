@@ -39,7 +39,7 @@ public class ActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Activities");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.activities));
         //colocar o respectivo item em checked do drawer menu
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_activities);
         // Inflate the layout for this fragment

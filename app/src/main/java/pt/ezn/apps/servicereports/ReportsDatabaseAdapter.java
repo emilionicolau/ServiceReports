@@ -38,8 +38,11 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_MONTH, serviceActivity.getMonth());
         cv.put(ReportsHelper.COL_YEAR, serviceActivity.getYear());
         cv.put(ReportsHelper.COL_HOUR_BEGIN, serviceActivity.getHourBegin());
+        cv.put(ReportsHelper.COL_MIN_BEGIN, serviceActivity.getMinBegin());
         cv.put(ReportsHelper.COL_HOUR_END, serviceActivity.getHourEnd());
-        cv.put(ReportsHelper.COL_TOTAL_HOUR, serviceActivity.getTotalHours());
+        cv.put(ReportsHelper.COL_MIN_END, serviceActivity.getMinEnd());
+        cv.put(ReportsHelper.COL_TOTAL_HOUR, serviceActivity.getTotalHour());
+        cv.put(ReportsHelper.COL_TOTAL_MIN, serviceActivity.getTotalMin());
         cv.put(ReportsHelper.COL_TRAVEL_TIME, serviceActivity.getTravelTime());
         cv.put(ReportsHelper.COL_TRAVEL_DISTANCE, serviceActivity.getTravelDistance());
         cv.put(ReportsHelper.COL_WORK_DESC, serviceActivity.getWorkDesc());
@@ -166,8 +169,11 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_MONTH = "Month";
         private static final String COL_YEAR = "Year";
         private static final String COL_HOUR_BEGIN = "Hour_Begin";
+        private static final String COL_MIN_BEGIN = "Min_Begin";
         private static final String COL_HOUR_END = "Hour_End";
+        private static final String COL_MIN_END = "Min_End";
         private static final String COL_TOTAL_HOUR = "Total_Hours";
+        private static final String COL_TOTAL_MIN = "Total_Minutes";
         private static final String COL_TRAVEL_TIME = "Travel_Time";
         private static final String COL_TRAVEL_DISTANCE = "Travel_Distance";
         private static final String COL_WORK_DESC = "Work_Desc";
@@ -202,8 +208,11 @@ public class ReportsDatabaseAdapter  {
                 COL_MONTH+" INTEGER NOT NULL, "+
                 COL_YEAR+" INTEGER NOT NULL, "+
                 COL_HOUR_BEGIN+" INTEGER, "+
+                COL_MIN_BEGIN+" INTEGER, "+
                 COL_HOUR_END+" INTEGER, "+
+                COL_MIN_END+" INTEGER, "+
                 COL_TOTAL_HOUR +" INTEGER, "+
+                COL_TOTAL_MIN +" INTEGER, "+
                 COL_TRAVEL_TIME+" INTEGER, "+
                 COL_TRAVEL_DISTANCE+" INTEGER, "+
                 COL_WORK_DESC+" TEXT, "+
