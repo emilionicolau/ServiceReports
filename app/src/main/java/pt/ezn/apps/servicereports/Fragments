@@ -97,3 +97,14 @@ down vote
 In your fragments onCreate method add setHasOptionsMenu(true);
 
 **********************************************************
+
+
+
+
+Use getTime():
+
+Time t = Time.valueOf("2:00:00");
+long l = t.getTime();
+
+
+**************************************************************

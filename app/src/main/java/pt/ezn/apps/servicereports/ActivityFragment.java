@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -241,9 +242,11 @@ public class ActivityFragment extends Fragment {
         minBegin = todayCalendar.get(Calendar.MINUTE);
         serviceActivity.setHourBegin(hourBegin);
         serviceActivity.setMinBegin(minBegin);
-        String time = String.valueOf(hourBegin)+":"+String.valueOf(minBegin);
+        String time = getHourString(hourBegin, minBegin);
         tvTimeBegin.setText(time);
     }
+
+
 
     private void readTimeEnd() {
         TimePickerDialog timePicker = new TimePickerDialog(getActivity(), he,todayCalendar.get(Calendar.HOUR_OF_DAY),
@@ -266,8 +269,27 @@ public class ActivityFragment extends Fragment {
         minEnd = todayCalendar.get(Calendar.MINUTE);
         serviceActivity.setHourEnd(hourEnd);
         serviceActivity.setMinEnd(minEnd);
-        String time = String.valueOf(hourEnd)+":"+String.valueOf(minEnd);
+        String time = getHourString(hourEnd, minEnd);
         tvTimeEnd.setText(time);
+    }
+
+    @NonNull
+    private String getHourString(int hour, int min) {
+        String stringhour, stringmin;
+        if(hour < 10){
+            stringhour = '0'+String.valueOf(hour);
+        }
+        else{
+            stringhour = String.valueOf(hour);
+        }
+        if (min < 10){
+            stringmin = '0'+String.valueOf(min);
+        }
+        else{
+            stringmin = String.valueOf(min);
+        }
+
+        return stringhour +":"+ stringmin;
     }
 
     //acrescentar opcoes ao menu da toolbar

@@ -89,6 +89,7 @@
 
             <TextView
                 android:text="@string/begin_time"
+                android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -99,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
                 android:layout_below="@id/SplitLine_hor3"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
@@ -118,6 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
                 android:layout_below="@id/SplitLine_hor4"
                 android:id="@+id/tvTimeEnd" />
 
@@ -125,11 +128,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
                 android:layout_below="@id/SplitLine_hor4"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:id="@+id/etFragActTimeEnd" />
+
             <View
                 android:id="@+id/SplitLine_hor5"
                 android:layout_width="match_parent"
@@ -137,6 +142,101 @@
                 android:layout_below="@id/tvTimeEnd"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
+
+            <TextView
+                android:text="@string/travel_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/SplitLine_hor5"
+                android:id="@+id/tvTravelTime" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/SplitLine_hor5"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:text="00:00"
+                android:id="@+id/etFragActTravelTime"
+                android:inputType="time" />
+            <View
+                android:id="@+id/SplitLine_hor6"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvTravelTime"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
+            <TextView
+                android:text="@string/travel_kms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/SplitLine_hor6"
+                android:id="@+id/tvTravelKms" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_normal"
+                android:layout_marginTop="12dp"
+                android:layout_below="@id/SplitLine_hor6"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:hint="Kms"
+                android:id="@+id/etFragActTravelKms"
+                android:inputType="numberDecimal" />
+            <View
+                android:id="@+id/SplitLine_hor7"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/tvTravelKms"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:inputType="textMultiLine"
+                android:layout_below="@id/SplitLine_hor7"
+                android:hint="@string/add_activity_description"
+                android:maxLength="100"
+                android:textSize="@dimen/text_normal"
+                android:background="@android:color/transparent"
+                android:id="@+id/etFragActDescr" />
+            <View
+                android:id="@+id/SplitLine_hor8"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/etFragActDescr"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:inputType="textMultiLine"
+                android:layout_below="@id/SplitLine_hor8"
+                android:hint="@string/add_notes"
+                android:maxLength="100"
+                android:textSize="@dimen/text_normal"
+                android:background="@android:color/transparent"
+                android:id="@+id/etFragActNotes" />
+            <View
+                android:id="@+id/SplitLine_hor9"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:layout_below="@id/etFragActNotes"
+                android:layout_marginTop="12dp"
+                android:background="@color/gray" />
+
 
 
         </RelativeLayout>
