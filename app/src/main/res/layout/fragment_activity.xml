@@ -192,7 +192,8 @@
                 android:clickable="true"
                 android:hint="Kms"
                 android:id="@+id/etFragActTravelKms"
-                android:inputType="numberDecimal" />
+                android:maxLength="5"
+                android:inputType="numberSigned" />
             <View
                 android:id="@+id/SplitLine_hor7"
                 android:layout_width="match_parent"

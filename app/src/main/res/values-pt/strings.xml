@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Service Reports</string>
+    <string name="action_settings">Preferências</string>
+    <string name="activities">Actividades</string>
+    <string name="activities_reports">Relatórios de actividades</string>
+    <string name="add_activity_description">Descrição de actividades</string>
+    <string name="add_equipment">Equipamentos</string>
+    <string name="add_notes">Notas</string>
+    <string name="begin_time">Hora Inicial</string>
+    <string name="cancel">Cancelar</string>
+    <string name="client">Cliente</string>
+    <string name="client_type">Tipo de cliente</string>
+    <string name="clients">Clientes</string>
+    <string name="date">Data</string>
+    <string name="description">Descrição</string>
+    <string name="end_time">Hora final</string>
+    <string name="enter_decimal">Introduza um numero decimal</string>
+    <string name="equipments">Equipamentos</string>
+    <string name="expenses">Despesas</string>
+    <string name="expenses_reports">Relatórios de despesas</string>
+    <string name="name">Nome</string>
+    <string name="save">Guardar</string>
+    <string name="service_activity">Actividade</string>
+    <string name="service_reports">Relatórios de serviço</string>
+    <string name="settings">Preferências</string>
+    <string name="total">Total</string>
+    <string name="travel_kms">Distância de viagem</string>
+    <string name="travel_time">Tempo de viagem</string>
+</resources>

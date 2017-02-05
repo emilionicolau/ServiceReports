@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,7 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static android.R.attr.name;
+import static pt.ezn.apps.servicereports.CalendarMethodes.getHourString;
 
 
 /**
@@ -45,12 +44,13 @@ public class ActivityFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private int day, month, year, hourBegin, hourEnd, minBegin, minEnd;
+    private int day, month, year, hourBegin, hourEnd, minBegin, minEnd, kms;
     private Calendar todayCalendar = Calendar.getInstance();
+    private Calendar endCalendar = Calendar.getInstance();
     private TextView tvDate, tvTimeBegin, tvTimeEnd;
     private Spinner clientSpinner;
     private ServiceActivity serviceActivity = new ServiceActivity();
-    private EditText etEquipment;
+    private EditText etEquipment, etkms, etdescription, etnotes;
     private ReportsDatabaseAdapter database;
 
     private OnFragmentInteractionListener mListener;
@@ -113,7 +113,9 @@ public class ActivityFragment extends Fragment {
         etEquipment = (EditText) view.findViewById(R.id.etFragActEquips);
         tvTimeBegin = (TextView) view.findViewById(R.id.etFragActTimeBegin);
         tvTimeEnd = (TextView) view.findViewById(R.id.etFragActTimeEnd);
-
+        etkms = (EditText) view.findViewById(R.id.etFragActTravelKms);
+        etdescription = (EditText) view.findViewById(R.id.etFragActDescr);
+        etnotes = (EditText) view.findViewById(R.id.etFragActNotes);
 
         //colocar a data actual
         updateDate();
@@ -143,6 +145,7 @@ public class ActivityFragment extends Fragment {
                 readTimeEnd();
             }
         });
+
 
 
         return view;
@@ -198,9 +201,11 @@ public class ActivityFragment extends Fragment {
         serviceActivity.setDay(day);
         serviceActivity.setMonth(month);
         serviceActivity.setYear(year);
-        String fDate = String.valueOf(day) + '-' + String.valueOf(month) + '-' + String.valueOf(year);
+        String fDate = CalendarMethodes.getDateString(day,month,year);
         tvDate.setText(fDate);
     }
+
+
 
     private void readDate() {
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(),d, todayCalendar.get(Calendar.DAY_OF_MONTH), todayCalendar.get(Calendar.MONTH),
@@ -242,15 +247,15 @@ public class ActivityFragment extends Fragment {
         minBegin = todayCalendar.get(Calendar.MINUTE);
         serviceActivity.setHourBegin(hourBegin);
         serviceActivity.setMinBegin(minBegin);
-        String time = getHourString(hourBegin, minBegin);
+        String time = CalendarMethodes.getHourString(hourBegin, minBegin);
         tvTimeBegin.setText(time);
     }
 
 
 
     private void readTimeEnd() {
-        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), he,todayCalendar.get(Calendar.HOUR_OF_DAY),
-                todayCalendar.get(Calendar.MINUTE),true);
+        TimePickerDialog timePicker = new TimePickerDialog(getActivity(), he,endCalendar.get(Calendar.HOUR_OF_DAY),
+                endCalendar.get(Calendar.MINUTE),true);
         timePicker.updateTime(hourEnd, minEnd);
         timePicker.show();
     }
@@ -258,38 +263,49 @@ public class ActivityFragment extends Fragment {
     TimePickerDialog.OnTimeSetListener he = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            todayCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            todayCalendar.set(Calendar.MINUTE, minute);
+            endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endCalendar.set(Calendar.MINUTE, minute);
             updateTimeEnd();
         }
     };
 
     private void updateTimeEnd() {
-        hourEnd = todayCalendar.get(Calendar.HOUR_OF_DAY);
-        minEnd = todayCalendar.get(Calendar.MINUTE);
+        hourEnd = endCalendar.get(Calendar.HOUR_OF_DAY);
+        minEnd = endCalendar.get(Calendar.MINUTE);
         serviceActivity.setHourEnd(hourEnd);
         serviceActivity.setMinEnd(minEnd);
         String time = getHourString(hourEnd, minEnd);
         tvTimeEnd.setText(time);
     }
 
-    @NonNull
-    private String getHourString(int hour, int min) {
-        String stringhour, stringmin;
-        if(hour < 10){
-            stringhour = '0'+String.valueOf(hour);
-        }
-        else{
-            stringhour = String.valueOf(hour);
-        }
-        if (min < 10){
-            stringmin = '0'+String.valueOf(min);
-        }
-        else{
-            stringmin = String.valueOf(min);
-        }
 
-        return stringhour +":"+ stringmin;
+    private void saveServiceActivity() {
+        serviceActivity.setEquipment(etEquipment.getText().toString());
+        //calcular o tempo total
+        serviceActivity.totalTime();
+        int distance=Integer.parseInt(etkms.getText().toString());
+        serviceActivity.setTravelDistance(distance);
+        serviceActivity.setWorkDesc(etdescription.getText().toString());
+        serviceActivity.setNotes(etnotes.getText().toString());
+
+        long feedback = database.insertServiceActicity(serviceActivity);
+        if(feedback == -1){
+            Toast.makeText(getContext(), R.string.fail_save_item,Toast.LENGTH_LONG).show();
+        }
+        clearForm();
+
+    }
+
+    private void clearForm() {
+        todayCalendar = Calendar.getInstance();
+        updateDate();
+        updateTimeBegin();
+        updateTimeEnd();
+        clientSpinner.setSelection(0);
+        etEquipment.getText().clear();
+        etdescription.getText().clear();
+        etnotes.getText().clear();
+
     }
 
     //acrescentar opcoes ao menu da toolbar
@@ -315,27 +331,7 @@ public class ActivityFragment extends Fragment {
         return false;
     }
 
-    private void saveServiceActivity() {
-        serviceActivity.setEquipment(etEquipment.getText().toString());
-        //calcular o tempo total
-        serviceActivity.totalTime();
 
-        long feedback = database.insertServiceActicity(serviceActivity);
-        clearForm();
-
-        //getActivity().onBackPressed();
-        Toast.makeText(getContext(), name + " - " + String.valueOf(feedback), Toast.LENGTH_LONG).show();
-    }
-
-    private void clearForm() {
-        todayCalendar = Calendar.getInstance();
-        updateDate();
-        updateTimeBegin();
-        updateTimeEnd();
-        clientSpinner.setSelection(0);
-        etEquipment.getText().clear();
-
-    }
 
 
     // TODO: Rename method, update argument and hook method into UI event
