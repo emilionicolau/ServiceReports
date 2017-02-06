@@ -181,7 +181,7 @@
                 android:layout_below="@id/SplitLine_hor6"
                 android:id="@+id/tvTravelKms" />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -192,8 +192,8 @@
                 android:clickable="true"
                 android:hint="Kms"
                 android:id="@+id/etFragActTravelKms"
-                android:maxLength="5"
                 android:inputType="numberSigned" />
+
             <View
                 android:id="@+id/SplitLine_hor7"
                 android:layout_width="match_parent"

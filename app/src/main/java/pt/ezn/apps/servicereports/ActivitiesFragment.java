@@ -62,6 +62,7 @@ public class ActivitiesFragment extends Fragment {
         activitiesRecycler.setLayoutManager(manager);
 
         ReportsDatabaseAdapter reportAdapter = new ReportsDatabaseAdapter(this.getContext());
+        serviceActivityArrayList = reportAdapter.getAllActivities();
 
         ActivitiesAdapter activityAdapter = new ActivitiesAdapter(this.getContext(), serviceActivityArrayList);
         activitiesRecycler.setAdapter(activityAdapter);

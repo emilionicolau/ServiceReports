@@ -11,28 +11,15 @@ public class ServiceActivity implements Serializable{
 
 
     private String client, equipment, workDesc, notes;
-    private int serviceId, cliendId, day, month, year, hourBegin, minBegin, hourEnd, minEnd, totalHour,
-            totalMin,travelTime, travelDistance;
+    private int serviceId, cliendId, day, month, year, timeBegin, timeEnd, totalTime, travelTime, travelDistance;
 
     public ServiceActivity() {
 
     }
-    public void totalTime(){
-        if (minEnd < minBegin){
-            int mintemp = minEnd + 60;
-            int hourtemp = hourEnd - 1;
-            totalHour = hourtemp - hourBegin;
-            totalMin = mintemp - minBegin;
-        }
-        else{
-            totalHour = hourEnd - hourBegin;
-            totalMin = minEnd - minBegin;
-        }
 
-    }
 
     public String Date(){
-        return getDay() + "/" + getMonth() + "/" + getYear();
+        return getDay() + "-" + getMonth() + "-" + getYear();
     }
 
 
@@ -46,12 +33,12 @@ public class ServiceActivity implements Serializable{
         this.equipment = equipment;
     }
 
-    public void setHourBegin(int hourBegin) {
-        this.hourBegin = hourBegin;
+    public void setTimeBegin(int timeBegin) {
+        this.timeBegin = timeBegin;
     }
 
-    public void setHourEnd(int hourEnd) {
-        this.hourEnd = hourEnd;
+    public void setTimeEnd(int timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
     public void setNotes(String notes) {
@@ -78,12 +65,12 @@ public class ServiceActivity implements Serializable{
         this.serviceId = serviceId;
     }
 
-    public int getTotalHour() {
-        return totalHour;
+    public int getTotalTime() {
+        return totalTime;
     }
 
-    public void setTotalHour(int totalHour) {
-        this.totalHour = totalHour;
+    public void computeTotalTime() {
+        this.totalTime = timeEnd - timeBegin;;
     }
 
     public String getClient() {
@@ -118,12 +105,12 @@ public class ServiceActivity implements Serializable{
         return equipment;
     }
 
-    public int getHourBegin() {
-        return hourBegin;
+    public int getTimeBegin() {
+        return timeBegin;
     }
 
-    public int getHourEnd() {
-        return hourEnd;
+    public int getTimeEnd() {
+        return timeEnd;
     }
 
     public String getNotes() {
@@ -150,23 +137,7 @@ public class ServiceActivity implements Serializable{
         this.cliendId = cliendId;
     }
 
-    public int getMinBegin() {
-        return minBegin;
-    }
-
-    public void setMinBegin(int minBegin) {
-        this.minBegin = minBegin;
-    }
-
-    public int getMinEnd() {
-        return minEnd;
-    }
-
-    public void setMinEnd(int minEnd) {
-        this.minEnd = minEnd;
-    }
-
-    public int getTotalMin() {
-        return totalMin;
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
     }
 }

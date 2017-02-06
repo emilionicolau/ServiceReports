@@ -34,4 +34,8 @@
     <string name="add_activity_description">Activity description</string>
     <string name="add_notes">Notes</string>
     <string name="fail_save_item">Activity not saved. Please try again. If fails again, restart app.</string>
+    <string name="travel_distance">Travel Distance</string>
+    <string name="error">Error</string>
+    <string name="time_flow_error">"End time must be after Begin time."</string>
+    <string name="new_client">-- New client --</string>
 </resources>

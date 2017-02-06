@@ -37,12 +37,9 @@ public class ReportsDatabaseAdapter  {
         cv.put(ReportsHelper.COL_DAY, serviceActivity.getDay());
         cv.put(ReportsHelper.COL_MONTH, serviceActivity.getMonth());
         cv.put(ReportsHelper.COL_YEAR, serviceActivity.getYear());
-        cv.put(ReportsHelper.COL_HOUR_BEGIN, serviceActivity.getHourBegin());
-        cv.put(ReportsHelper.COL_MIN_BEGIN, serviceActivity.getMinBegin());
-        cv.put(ReportsHelper.COL_HOUR_END, serviceActivity.getHourEnd());
-        cv.put(ReportsHelper.COL_MIN_END, serviceActivity.getMinEnd());
-        cv.put(ReportsHelper.COL_TOTAL_HOUR, serviceActivity.getTotalHour());
-        cv.put(ReportsHelper.COL_TOTAL_MIN, serviceActivity.getTotalMin());
+        cv.put(ReportsHelper.COL_TIME_BEGIN, serviceActivity.getTimeBegin());
+        cv.put(ReportsHelper.COL_TIME_END, serviceActivity.getTimeEnd());
+        cv.put(ReportsHelper.COL_TOTAL_TIME, serviceActivity.getTotalTime());
         cv.put(ReportsHelper.COL_TRAVEL_TIME, serviceActivity.getTravelTime());
         cv.put(ReportsHelper.COL_TRAVEL_DISTANCE, serviceActivity.getTravelDistance());
         cv.put(ReportsHelper.COL_WORK_DESC, serviceActivity.getWorkDesc());
@@ -119,6 +116,36 @@ public class ReportsDatabaseAdapter  {
 
     //TODO metodo para ler um cliente determinado da db sabendo o id
 
+    public ArrayList<ServiceActivity> getAllActivities(){
+        ArrayList<ServiceActivity> list = new ArrayList<ServiceActivity>();
+        SQLiteDatabase db = helper.getReadableDatabase();
+        db.beginTransaction();
+        String selectQuery = "SELECT * FROM " + ReportsHelper.TABLE_1_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if (cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                ServiceActivity serviceactivity = new ServiceActivity();
+                serviceactivity.setCliendId(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_CLIENT_ID)));
+                serviceactivity.setEquipment(cursor.getString(cursor.getColumnIndex(ReportsHelper.COL_EQUIPMENT)));
+                serviceactivity.setDay(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_DAY)));
+                serviceactivity.setMonth(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_MONTH)));
+                serviceactivity.setYear(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_YEAR)));
+                serviceactivity.setTimeBegin(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_TIME_BEGIN)));
+                serviceactivity.setTimeEnd(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_TIME_END)));
+                serviceactivity.setTotalTime(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_TOTAL_TIME)));
+                serviceactivity.setTravelTime(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_TRAVEL_TIME)));
+                serviceactivity.setTravelDistance(cursor.getInt(cursor.getColumnIndex(ReportsHelper.COL_TRAVEL_DISTANCE)));
+                serviceactivity.setWorkDesc(cursor.getString(cursor.getColumnIndex(ReportsHelper.COL_WORK_DESC)));
+                serviceactivity.setNotes(cursor.getString(cursor.getColumnIndex(ReportsHelper.COL_NOTES)));
+                list.add(serviceactivity);
+            }
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close();
+        return list;
+    }
+
 
     public ArrayList<String> getAllClients(){
         ArrayList<String> list = new ArrayList<String>();
@@ -168,12 +195,9 @@ public class ReportsDatabaseAdapter  {
         private static final String COL_DAY = "Day";
         private static final String COL_MONTH = "Month";
         private static final String COL_YEAR = "Year";
-        private static final String COL_HOUR_BEGIN = "Hour_Begin";
-        private static final String COL_MIN_BEGIN = "Min_Begin";
-        private static final String COL_HOUR_END = "Hour_End";
-        private static final String COL_MIN_END = "Min_End";
-        private static final String COL_TOTAL_HOUR = "Total_Hours";
-        private static final String COL_TOTAL_MIN = "Total_Minutes";
+        private static final String COL_TIME_BEGIN = "Time_Begin";
+        private static final String COL_TIME_END = "Time_End";
+        private static final String COL_TOTAL_TIME = "Total_Time";
         private static final String COL_TRAVEL_TIME = "Travel_Time";
         private static final String COL_TRAVEL_DISTANCE = "Travel_Distance";
         private static final String COL_WORK_DESC = "Work_Desc";
@@ -207,12 +231,9 @@ public class ReportsDatabaseAdapter  {
                 COL_DAY+" INTEGER NOT NULL, "+
                 COL_MONTH+" INTEGER NOT NULL, "+
                 COL_YEAR+" INTEGER NOT NULL, "+
-                COL_HOUR_BEGIN+" INTEGER, "+
-                COL_MIN_BEGIN+" INTEGER, "+
-                COL_HOUR_END+" INTEGER, "+
-                COL_MIN_END+" INTEGER, "+
-                COL_TOTAL_HOUR +" INTEGER, "+
-                COL_TOTAL_MIN +" INTEGER, "+
+                COL_TIME_BEGIN +" INTEGER, "+
+                COL_TIME_END +" INTEGER, "+
+                COL_TOTAL_TIME +" INTEGER, "+
                 COL_TRAVEL_TIME+" INTEGER, "+
                 COL_TRAVEL_DISTANCE+" INTEGER, "+
                 COL_WORK_DESC+" TEXT, "+

@@ -5,7 +5,7 @@ package pt.ezn.apps.servicereports;
  * ServiceReports
  */
 
-public class CalendarMethodes {
+public class SupportMethodes {
 
 
     public static String getHourString(int hour, int min) {
@@ -27,8 +27,16 @@ public class CalendarMethodes {
     }
 
 
-    public static int timeMin (int hour, int min){
+    public static int time(int hour, int min){
         return hour*60+min;
+    }
+
+    public static int getMin (int time){
+        return time%60;
+    }
+
+    public static int getHour (int time){
+        return time/60;
     }
 
 
@@ -36,5 +44,8 @@ public class CalendarMethodes {
         String date =String.valueOf(day) + '-' + String.valueOf(month) + '-' + String.valueOf(year);
         return date;
     }
+
+
+
 
 }

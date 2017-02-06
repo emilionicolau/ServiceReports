@@ -1,8 +1,10 @@
 package pt.ezn.apps.servicereports;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +17,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -25,7 +29,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static pt.ezn.apps.servicereports.CalendarMethodes.getHourString;
+import static pt.ezn.apps.servicereports.SupportMethodes.getHourString;
 
 
 /**
@@ -45,12 +49,13 @@ public class ActivityFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private int day, month, year, hourBegin, hourEnd, minBegin, minEnd, kms;
+    private int kmstemp=0;
     private Calendar todayCalendar = Calendar.getInstance();
     private Calendar endCalendar = Calendar.getInstance();
-    private TextView tvDate, tvTimeBegin, tvTimeEnd;
+    private TextView tvDate, tvTimeBegin, tvTimeEnd, etkms;
     private Spinner clientSpinner;
     private ServiceActivity serviceActivity = new ServiceActivity();
-    private EditText etEquipment, etkms, etdescription, etnotes;
+    private EditText etEquipment, etdescription, etnotes;
     private ReportsDatabaseAdapter database;
 
     private OnFragmentInteractionListener mListener;
@@ -113,7 +118,7 @@ public class ActivityFragment extends Fragment {
         etEquipment = (EditText) view.findViewById(R.id.etFragActEquips);
         tvTimeBegin = (TextView) view.findViewById(R.id.etFragActTimeBegin);
         tvTimeEnd = (TextView) view.findViewById(R.id.etFragActTimeEnd);
-        etkms = (EditText) view.findViewById(R.id.etFragActTravelKms);
+        etkms = (TextView) view.findViewById(R.id.etFragActTravelKms);
         etdescription = (EditText) view.findViewById(R.id.etFragActDescr);
         etnotes = (EditText) view.findViewById(R.id.etFragActNotes);
 
@@ -146,6 +151,14 @@ public class ActivityFragment extends Fragment {
             }
         });
 
+        etkms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kms=0;
+                numberPickerDialog ();
+            }
+        });
+
 
 
         return view;
@@ -154,13 +167,46 @@ public class ActivityFragment extends Fragment {
 
 
 
+    private void numberPickerDialog (){
+        final NumberPicker numberPicker = new NumberPicker(getContext());
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(5000);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                kms = newVal;
+            }
+
+
+        });
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(numberPicker);
+        builder.setTitle(R.string.travel_distance);
+        //builder.setIcon();
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                etkms.setText(" "+ kms +" Kms");
+                kmstemp=kms;
+                serviceActivity.setTravelDistance(kms);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                etkms.setText(" "+kmstemp+" Kms");
+
+            }
+        });
+        builder.show();
+
+    }
 
     //metodo para ler o spinner
     public void lerSpinner(View view, final ReportsDatabaseAdapter database) {
         clientSpinner = (Spinner) view.findViewById(R.id.spinnerClient);
         final ArrayList<String> clientslist = database.getAllClients();
         clientslist.add(0," ");
-        clientslist.add(1,"-- New client --");
+        clientslist.add(1,getString(R.string.new_client));
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter(getActivity(), R.layout.support_simple_spinner_dropdown_item,
                 clientslist);
@@ -201,7 +247,7 @@ public class ActivityFragment extends Fragment {
         serviceActivity.setDay(day);
         serviceActivity.setMonth(month);
         serviceActivity.setYear(year);
-        String fDate = CalendarMethodes.getDateString(day,month,year);
+        String fDate = SupportMethodes.getDateString(day,month,year);
         tvDate.setText(fDate);
     }
 
@@ -245,9 +291,8 @@ public class ActivityFragment extends Fragment {
     private void updateTimeBegin() {
         hourBegin = todayCalendar.get(Calendar.HOUR_OF_DAY);
         minBegin = todayCalendar.get(Calendar.MINUTE);
-        serviceActivity.setHourBegin(hourBegin);
-        serviceActivity.setMinBegin(minBegin);
-        String time = CalendarMethodes.getHourString(hourBegin, minBegin);
+        serviceActivity.setTimeBegin(hourBegin*60+minBegin);
+        String time = SupportMethodes.getHourString(hourBegin, minBegin);
         tvTimeBegin.setText(time);
     }
 
@@ -272,25 +317,47 @@ public class ActivityFragment extends Fragment {
     private void updateTimeEnd() {
         hourEnd = endCalendar.get(Calendar.HOUR_OF_DAY);
         minEnd = endCalendar.get(Calendar.MINUTE);
-        serviceActivity.setHourEnd(hourEnd);
-        serviceActivity.setMinEnd(minEnd);
+        serviceActivity.setTimeEnd(hourEnd*60+minEnd);
         String time = getHourString(hourEnd, minEnd);
         tvTimeEnd.setText(time);
+    }
+
+    private void resetTime() {
+        todayCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
+        updateTimeBegin();
+        updateTimeEnd();
+
+    }
+
+    private void timeInputError() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mView = getLayoutInflater(null).inflate(R.layout.dialog_error, null);
+        TextView tv = (TextView) mView.findViewById(R.id.tv_dialog_msg);
+        Button bt = (Button) mView.findViewById(R.id.bt_ok_error_dialog);
+        tv.setText(getString(R.string.time_flow_error));
+        builder.setView(mView);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
 
     private void saveServiceActivity() {
         serviceActivity.setEquipment(etEquipment.getText().toString());
         //calcular o tempo total
-        serviceActivity.totalTime();
-        int distance=Integer.parseInt(etkms.getText().toString());
-        serviceActivity.setTravelDistance(distance);
+        serviceActivity.computeTotalTime();
         serviceActivity.setWorkDesc(etdescription.getText().toString());
         serviceActivity.setNotes(etnotes.getText().toString());
 
         long feedback = database.insertServiceActicity(serviceActivity);
         if(feedback == -1){
-            Toast.makeText(getContext(), R.string.fail_save_item,Toast.LENGTH_LONG).show();
+           Toast.makeText(getContext(), R.string.fail_save_item,Toast.LENGTH_LONG).show();
         }
         clearForm();
 
@@ -299,8 +366,7 @@ public class ActivityFragment extends Fragment {
     private void clearForm() {
         todayCalendar = Calendar.getInstance();
         updateDate();
-        updateTimeBegin();
-        updateTimeEnd();
+        resetTime();
         clientSpinner.setSelection(0);
         etEquipment.getText().clear();
         etdescription.getText().clear();
@@ -322,7 +388,16 @@ public class ActivityFragment extends Fragment {
                 // Not implemented here
                 return false;
             case R.id.action_save_activity:
-                saveServiceActivity();
+                if(serviceActivity.getTimeEnd()<serviceActivity.getTimeBegin()){
+                    //inputError = true;
+                    resetTime();
+                    timeInputError();
+                }
+                else{
+                    saveServiceActivity();
+                    clearForm();
+                }
+
                 return true;
             default:
                 break;
