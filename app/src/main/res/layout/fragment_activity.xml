@@ -37,7 +37,7 @@
             <View
                 android:id="@+id/SplitLine_hor1"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvFragActDate"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
@@ -61,14 +61,14 @@
             <View
                 android:id="@+id/SplitLine_hor2"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvClient"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:inputType="textMultiLine"
                 android:layout_below="@id/SplitLine_hor2"
                 android:hint="@string/add_equipment"
@@ -79,7 +79,7 @@
             <View
                 android:id="@+id/SplitLine_hor3"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/etFragActEquips"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
@@ -107,7 +107,7 @@
             <View
                 android:id="@+id/SplitLine_hor4"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvTimeBegin"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
@@ -135,7 +135,7 @@
             <View
                 android:id="@+id/SplitLine_hor5"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvTimeEnd"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
@@ -164,7 +164,7 @@
             <View
                 android:id="@+id/SplitLine_hor6"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvTravelTime"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
@@ -194,14 +194,14 @@
             <View
                 android:id="@+id/SplitLine_hor7"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/tvTravelKms"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textMultiLine"
                 android:layout_below="@id/SplitLine_hor7"
                 android:hint="@string/add_activity_description"
@@ -212,14 +212,14 @@
             <View
                 android:id="@+id/SplitLine_hor8"
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
+                android:layout_height= "1dp"
                 android:layout_below="@id/etFragActDescr"
                 android:layout_marginTop="12dp"
                 android:background="@color/gray" />
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:inputType="textMultiLine"
                 android:layout_below="@id/SplitLine_hor8"
                 android:hint="@string/add_notes"
@@ -227,13 +227,7 @@
                 android:textSize="@dimen/text_normal"
                 android:background="@android:color/transparent"
                 android:id="@+id/etFragActNotes" />
-            <View
-                android:id="@+id/SplitLine_hor9"
-                android:layout_width="match_parent"
-                android:layout_height= "2dp"
-                android:layout_below="@id/etFragActNotes"
-                android:layout_marginTop="12dp"
-                android:background="@color/gray" />
+
 
 
 
