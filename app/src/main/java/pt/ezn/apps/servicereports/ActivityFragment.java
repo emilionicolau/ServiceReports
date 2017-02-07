@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,11 +47,11 @@ public class ActivityFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
-    private int day, month, year, hourBegin, hourEnd, minBegin, minEnd, kms;
+    private int day, month, year, hourBegin, hourEnd, minBegin, minEnd, kms, hourTravel, minTravel;
     private int kmstemp=0;
     private Calendar todayCalendar = Calendar.getInstance();
     private Calendar endCalendar = Calendar.getInstance();
-    private TextView tvDate, tvTimeBegin, tvTimeEnd, etkms;
+    private TextView tvDate, tvTimeBegin, tvTimeEnd, etkms, tvTravelTime;
     private Spinner clientSpinner;
     private ServiceActivity serviceActivity = new ServiceActivity();
     private EditText etEquipment, etdescription, etnotes;
@@ -118,6 +117,7 @@ public class ActivityFragment extends Fragment {
         etEquipment = (EditText) view.findViewById(R.id.etFragActEquips);
         tvTimeBegin = (TextView) view.findViewById(R.id.etFragActTimeBegin);
         tvTimeEnd = (TextView) view.findViewById(R.id.etFragActTimeEnd);
+        tvTravelTime = (TextView) view.findViewById(R.id.tvFragActTravelTime);
         etkms = (TextView) view.findViewById(R.id.etFragActTravelKms);
         etdescription = (EditText) view.findViewById(R.id.etFragActDescr);
         etnotes = (EditText) view.findViewById(R.id.etFragActNotes);
@@ -151,11 +151,18 @@ public class ActivityFragment extends Fragment {
             }
         });
 
+        tvTravelTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readTravelTime();
+            }
+        });
+
         etkms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kms=0;
-                numberPickerDialog ();
+                readTravelDistance();
             }
         });
 
@@ -167,39 +174,8 @@ public class ActivityFragment extends Fragment {
 
 
 
-    private void numberPickerDialog (){
-        final NumberPicker numberPicker = new NumberPicker(getContext());
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(5000);
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                kms = newVal;
-            }
 
 
-        });
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext()).setView(numberPicker);
-        builder.setTitle(R.string.travel_distance);
-        //builder.setIcon();
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                etkms.setText(" "+ kms +" Kms");
-                kmstemp=kms;
-                serviceActivity.setTravelDistance(kms);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                etkms.setText(" "+kmstemp+" Kms");
-
-            }
-        });
-        builder.show();
-
-    }
 
     //metodo para ler o spinner
     public void lerSpinner(View view, final ReportsDatabaseAdapter database) {
@@ -238,6 +214,8 @@ public class ActivityFragment extends Fragment {
             }
         });
     }
+
+
 
     public void updateDate() {
         day = todayCalendar.get(Calendar.DAY_OF_MONTH);
@@ -346,6 +324,102 @@ public class ActivityFragment extends Fragment {
             }
         });
     }
+
+
+
+    private void readTravelTime() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mView = getLayoutInflater(null).inflate(R.layout.time_picker, null);
+        NumberPicker picker1 = (NumberPicker) mView.findViewById(R.id.tp_numberpicker1);
+        NumberPicker picker2 = (NumberPicker) mView.findViewById(R.id.tp_numberpicker2);
+        picker1.setMinValue(0);
+        picker1.setMaxValue(23);
+        picker2.setMinValue(0);
+        picker2.setMaxValue(59);
+
+        //ler os valores dos number pickers 1 e 2
+        picker1.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                hourTravel = newVal;
+            }
+        });
+        picker2.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                minTravel = newVal;
+            }
+        });
+
+        Button btok = (Button) mView.findViewById(R.id.bt_timepicker_ok);
+        Button btcancel = (Button) mView.findViewById(R.id.bt_timepicker_cancel);
+        builder.setView(mView);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        //sentinelas para reagirem aos botoes cancel e ok
+        btok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvTravelTime.setText(SupportMethodes.getHourString(hourTravel,minTravel));
+                serviceActivity.setTravelTime(SupportMethodes.computeTime(hourTravel,minTravel));
+                dialog.dismiss();
+            }
+        });
+        btcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
+
+    private void readTravelDistance(){
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        View mView = getLayoutInflater(null).inflate(R.layout.distance_picker, null);
+        NumberPicker picker = (NumberPicker) mView.findViewById(R.id.dp_numberpicker);
+        picker.setMinValue(0);
+        picker.setMaxValue(999);
+
+        //ler os valores do number picker
+        picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+                kms = newVal;
+            }
+        });
+
+
+        Button btok = (Button) mView.findViewById(R.id.dp_timepicker_ok);
+        Button btcancel = (Button) mView.findViewById(R.id.dp_timepicker_cancel);
+        builder.setView(mView);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        //sentinelas para reagirem aos botoes cancel e ok
+        btok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etkms.setText(" "+ kms +" Kms");
+                serviceActivity.setTravelDistance(kms);
+                dialog.dismiss();
+            }
+        });
+        btcancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+
 
 
     private void saveServiceActivity() {

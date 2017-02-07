@@ -20,11 +20,20 @@
         android:layout_height="1dp"
         android:background="@color/cardview_shadow_end_color"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="8dp">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/left_bar"
+            android:layout_height="match_parent" />
 
         <TextView
             android:text="@string/date"
@@ -34,7 +43,10 @@
             android:layout_marginRight="12dp"
             android:maxLines="1"
             style="@style/CardView.Dark"
-            android:id="@+id/tvActivityCVDate" />
+            android:id="@+id/tvActivityCVDate"
+            android:layout_toRightOf="@+id/left_bar"
+            android:layout_toEndOf="@+id/left_bar"
+            android:textSize="14sp" />
 
         <TextView
             android:text="@string/client"
@@ -43,7 +55,12 @@
             android:paddingTop="4dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:id="@+id/tvActivityCVClient" />
+            android:id="@+id/tvActivityCVClient"
+            android:layout_below="@+id/tvActivityCVDate"
+            android:layout_toRightOf="@+id/left_bar"
+            android:layout_toEndOf="@+id/left_bar"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"/>
 
         <TextView
             android:text="@string/description"
@@ -52,8 +69,16 @@
             android:paddingTop="4dp"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:id="@+id/tvActivityCVDescr" />
-    </LinearLayout>
+            android:id="@+id/tvActivityCVDescr"
+            android:layout_below="@+id/tvActivityCVClient"
+            android:layout_toRightOf="@+id/left_bar"
+            android:layout_toEndOf="@+id/left_bar"
+            android:layout_alignBottom="@+id/left_bar"
+            android:textSize="14sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"/>
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
 

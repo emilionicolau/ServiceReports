@@ -19,7 +19,17 @@ public class ServiceActivity implements Serializable{
 
 
     public String Date(){
-        return getDay() + "-" + getMonth() + "-" + getYear();
+        String day, month;
+        if (getDay()<10){
+            day = "0"+getDay();
+        }
+        else day = String.valueOf(getDay());
+        if (getMonth()<10){
+            month = "0"+getMonth();
+        }
+        else month = String.valueOf(getMonth());
+
+        return day + "-" + month + "-" + getYear();
     }
 
 

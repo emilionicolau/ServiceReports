@@ -2,10 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     tools:context="pt.ezn.apps.servicereports.ActivityFragment">
 
 
@@ -152,7 +149,7 @@
                 android:layout_below="@id/SplitLine_hor5"
                 android:id="@+id/tvTravelTime" />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
@@ -162,7 +159,7 @@
                 android:layout_alignParentEnd="true"
                 android:clickable="true"
                 android:text="00:00"
-                android:id="@+id/etFragActTravelTime"
+                android:id="@+id/tvFragActTravelTime"
                 android:inputType="time" />
             <View
                 android:id="@+id/SplitLine_hor6"

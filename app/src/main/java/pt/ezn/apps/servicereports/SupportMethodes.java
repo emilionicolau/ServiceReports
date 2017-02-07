@@ -27,7 +27,7 @@ public class SupportMethodes {
     }
 
 
-    public static int time(int hour, int min){
+    public static int computeTime(int hour, int min){
         return hour*60+min;
     }
 
